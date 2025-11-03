@@ -24,20 +24,20 @@ python3 ./scripts/generate_docs.py <module_or_package_name> <xcodeproj_path>
 ### Example
 
 ```bash
-python3 ./scripts/generate_docs.py ButtonKit /Users/czottmann/Code/BarCuts/BarCuts.xcodeproj
+python3 ./scripts/generate_docs.py ButtonKit /Users/yourname/Code/MyProject/MyProject.xcodeproj
 ```
 
 Output:
 
 ```
-/Users/czottmann/Code/BarCuts/dependency-docs/ButtonKit-0.6.md
+/Users/yourname/Code/MyProject/dependency-docs/ButtonKit-0.6.md
 ```
 
 ## How It Works
 
 From within Claude Code, this skill automatically:
 
-1. **Resolves module to package** using the `swift-dependency-list` skill if needed
+1. **Resolves module to package** by calling the `swift-dependency-list` Python script directly
 2. **Checks for existing documentation** in `dependency-docs/`
 3. **If docs don't exist:**
    - Locates the package in DerivedData
@@ -76,7 +76,7 @@ The skill generates (or retrieves) documentation at:
 
 - Python 3.6+
 - `interfazzle` CLI tool installed and in PATH (https://github.com/czottmann/interfazzle)
-- `swift-dependency-list` skill available
+- `swift-dependency-list` Python script available at `~/.claude/skills/swift-dependency-list/scripts/extract_xcode_dependencies.py`
 - Project must be built at least once (DerivedData must exist)
 
 ## Output Format
