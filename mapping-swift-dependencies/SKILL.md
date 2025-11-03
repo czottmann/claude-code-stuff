@@ -1,6 +1,6 @@
 ---
-name: swift-dependency-list
-description: Maps Swift import statements to their source packages. Use when encountering import statements (e.g., "import ButtonKit", "what package provides Defaults"), when needing package version information, or when the user asks which package exports a specific module. Extracts package metadata from Xcode DerivedData. Does not cover system frameworks.
+name: mapping-swift-dependencies
+description: Maps Swift import statements to their source packages and extracts package metadata from Xcode DerivedData. Use when encountering import statements, needing package version information, or finding which package exports a specific module. Does not cover system frameworks.
 allowed-tools: Bash
 ---
 
@@ -12,10 +12,7 @@ When the user asks which package provides a specific module (e.g., "what package
 
 1. **Find the Xcode project path** - look for a `.xcodeproj` file in the current working directory
 
-2. **Run the dependency list script**:
-   ```bash
-   python3 ~/.claude/skills/swift-dependency-list/scripts/extract_xcode_dependencies.py "<path_to.xcodeproj>"
-   ```
+2. **Run the dependency list script**: `./scripts/extract_xcode_dependencies.py "<path_to.xcodeproj>"`
 
 3. **The script outputs JSON** mapping package names to their metadata:
    ```json
@@ -32,11 +29,11 @@ When the user asks which package provides a specific module (e.g., "what package
 
 ## Example
 
-```bash
-python3 ~/.claude/skills/swift-dependency-list/scripts/extract_xcode_dependencies.py "/Users/czottmann/Code/Browser Actions/Browser Actions.xcodeproj"
+```
+./scripts/extract_xcode_dependencies.py "/path/to/your/project.xcodeproj"
 ```
 
-Returns JSON showing all packages and their modules. To find which package provides "AppUpdating", search for "AppUpdating" in the `exported_modules` arrays.
+Returns JSON showing all packages and their modules. To find which package provides "Module1", search for "Module1" in the `exported_modules` arrays.
 
 ## Important Notes
 

@@ -1,8 +1,7 @@
 ---
-name: swift-package-docs-generator
-description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when:
-    - User asks "what's import X?" or "what does import X do?" / Encountering unfamiliar import statements / Exploring a dependency's API / User asks about package documentation
-  allowed-tools: Bash, Read
+name: generating-swift-package-docs
+description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when: User asks "what's import X?" or "what does import X do?" / Encountering unfamiliar import statements / Exploring a dependency's API / User asks about package documentation
+allowed-tools: Bash, Read
 ---
 
 Generates comprehensive API documentation for Swift package dependencies in Xcode projects.
@@ -15,10 +14,7 @@ When the user asks about an unfamiliar Swift module import (e.g., "what's import
 
 2. **Find the Xcode project path** - look for a `.xcodeproj` file in the current working directory or ask the user
 
-3. **Run the documentation generator script**:
-   ```bash
-   python3 ~/.claude/skills/swift-package-docs-generator/scripts/generate_docs.py "<module_name>" "<path_to.xcodeproj>"
-   ```
+3. **Run the documentation generator script**: `./scripts/generate_docs.py "<module_name>" "<path_to.xcodeproj>"`
 
 4. **The script will**:
    - Automatically determine which package provides the module (uses shared Swift package utilities)
@@ -30,14 +26,14 @@ When the user asks about an unfamiliar Swift module import (e.g., "what's import
 
 ## Example
 
-```bash
-python3 ~/.claude/skills/swift-package-docs-generator/scripts/generate_docs.py "AppUpdating" ~/Code/MyProject/MyProject.xcodeproj
+```
+./scripts/generate_docs.py "AppUpdating" /path/to/your/project.xcodeproj
 ```
 
 This returns a file path like:
 
 ```
-/Users/yourname/Code/MyProject/dependency-docs/MyAppUpdater-1.35.md
+/path/to/your/project/dependency-docs/MyAppUpdater-1.35.md
 ```
 
 Then read this file and provide the user with relevant information about the AppUpdating module.
