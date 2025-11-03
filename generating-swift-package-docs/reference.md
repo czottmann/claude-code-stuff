@@ -17,7 +17,7 @@ Automatically generates comprehensive API documentation for Swift package depend
 
 - **Automatic package resolution**: Maps module names to package names using dependency information
 - **Smart caching**: Checks for existing documentation before generating
-- **Clean integration**: Uses temporary UUID-based directories for generation, then cleans up
+- **Clean integration**: Uses OS temporary directories for generation with automatic cleanup
 - **Comprehensive output**: Combines all generated markdown with package README files
 - **Version-aware**: Generates docs with version-specific filenames (major.minor format)
 
@@ -53,11 +53,11 @@ From within Claude Code, this skill automatically:
 3. **If docs don't exist:**
    - Locates the package in DerivedData
    - Extracts version from git tags (major.minor only)
-   - Runs `interfazzle generate` with a unique temp directory
+   - Runs `interfazzle generate` with OS temporary directory
    - Concatenates all generated `.md` files
    - Appends the package's README if it exists
    - Saves to `dependency-docs/<package-name>-<major.minor>.md`
-   - Cleans up the temporary output directory
+   - Temporary directory is automatically cleaned up
 4. **Returns the documentation file path**
 
 ## When to Use
@@ -122,4 +122,4 @@ Verified working with:
 - Defaults 8.2.0 → `Defaults-8.2.md` (47KB)
 - Diagnostics 5.1.0 → `Diagnostics-5.1.md` (comprehensive API docs)
 
-All successfully generated, cached on subsequent runs, and temp directories properly cleaned up.
+All successfully generated, cached on subsequent runs, with automatic temp directory cleanup.
