@@ -5,12 +5,19 @@ Generate or retrieve documentation for Swift package dependencies.
 
 import sys
 import os
-import json
 import subprocess
-import glob
 import uuid
 import shutil
 from pathlib import Path
+
+# Import shared utilities
+sys.path.insert(0, str(Path.home() / ".claude/skills/_shared"))
+from swift_packages import (
+    get_all_dependencies,
+    resolve_module_to_package,
+    find_derived_data_path,
+    find_package_directory_in_derived_data
+)
 
 
 def error_exit(message):
@@ -32,52 +39,6 @@ def run_command(cmd, cwd=None, capture_output=True):
         return result.stdout.strip() if capture_output else None
     except subprocess.CalledProcessError as e:
         error_exit(f"Command failed: {' '.join(cmd)}\n{e.stderr}")
-
-
-def get_swift_dependency_list(xcodeproj_path):
-    """Get dependency list using swift-dependency-list skill."""
-    skill_script = Path.home() / ".claude/skills/swift-dependency-list/scripts/extract_xcode_dependencies.py"
-
-    if not skill_script.exists():
-        error_exit("swift-dependency-list skill not found")
-
-    output = run_command(["python3", str(skill_script), xcodeproj_path])
-    return json.loads(output)
-
-
-def resolve_package_name(module_or_package, dependencies):
-    """Resolve module name to package name using dependency list."""
-    # Check if it's already a package name
-    if module_or_package in dependencies:
-        return module_or_package
-
-    # Search for module in exported_modules
-    for package_name, info in dependencies.items():
-        if module_or_package in info.get("exported_modules", []):
-            return package_name
-
-    error_exit(f"Could not find package for module: {module_or_package}")
-
-
-def find_package_in_derived_data(package_name, xcodeproj_path):
-    """Find package directory in DerivedData."""
-    # Extract project name from xcodeproj path
-    project_name = Path(xcodeproj_path).stem
-
-    # Xcode replaces spaces with underscores in DerivedData directory names
-    normalized_project_name = project_name.replace(" ", "_")
-
-    # Package checkout directories use lowercase names
-    package_checkout_name = package_name.lower()
-
-    # Search for DerivedData directory
-    derived_data_pattern = f"{Path.home()}/Library/Developer/Xcode/DerivedData/{normalized_project_name}-*/SourcePackages/checkouts/{package_checkout_name}"
-    matches = glob.glob(derived_data_pattern)
-
-    if not matches:
-        error_exit(f"Package '{package_name}' not found in DerivedData. Has the project been built?")
-
-    return Path(matches[0])
 
 
 def get_package_version(package_dir):
@@ -164,19 +125,23 @@ def main():
         sys.exit(1)
 
     module_or_package = sys.argv[1]
-    xcodeproj_path = sys.argv[2]
+    xcodeproj_path_str = sys.argv[2]
+    xcodeproj_path = Path(xcodeproj_path_str)
 
     # Validate xcodeproj path
-    if not os.path.exists(xcodeproj_path):
+    if not xcodeproj_path.exists():
         error_exit(f"Xcode project not found: {xcodeproj_path}")
 
-    project_dir = Path(xcodeproj_path).parent
+    project_dir = xcodeproj_path.parent
     docs_dir = project_dir / "dependency-docs"
 
     # Get dependency list and resolve package name
     print(f"Resolving package name for: {module_or_package}", file=sys.stderr)
-    dependencies = get_swift_dependency_list(xcodeproj_path)
-    package_name = resolve_package_name(module_or_package, dependencies)
+    dependencies = get_all_dependencies(xcodeproj_path)
+    package_name = resolve_module_to_package(module_or_package, dependencies)
+
+    if package_name is None:
+        error_exit(f"Could not find package for module: {module_or_package}")
 
     # Get package info
     package_info = dependencies[package_name]
@@ -197,7 +162,12 @@ def main():
 
     # Find package in DerivedData
     print(f"Finding package '{package_name}' in DerivedData...", file=sys.stderr)
-    package_dir = find_package_in_derived_data(package_name, xcodeproj_path)
+    project_name = xcodeproj_path.stem
+    checkouts_dir = find_derived_data_path(project_name)
+    package_dir = find_package_directory_in_derived_data(checkouts_dir, package_name)
+
+    if package_dir is None:
+        error_exit(f"Package '{package_name}' not found in DerivedData. Has the project been built?")
 
     # Generate documentation
     print(f"Generating documentation for {package_name} {short_version}...", file=sys.stderr)

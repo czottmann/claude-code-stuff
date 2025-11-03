@@ -1,7 +1,8 @@
 ---
 name: swift-package-docs-generator
-description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when: - User asks "what's import X?" or "what does import X do?" / Encountering unfamiliar import statements / Exploring a dependency's API / User asks about package documentation
-allowed-tools: Bash, Read
+description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when:
+    - User asks "what's import X?" or "what does import X do?" / Encountering unfamiliar import statements / Exploring a dependency's API / User asks about package documentation
+  allowed-tools: Bash, Read
 ---
 
 Generates comprehensive API documentation for Swift package dependencies in Xcode projects.
@@ -20,7 +21,7 @@ When the user asks about an unfamiliar Swift module import (e.g., "what's import
    ```
 
 4. **The script will**:
-   - Automatically determine which package provides the module (calls the swift-dependency-list script internally)
+   - Automatically determine which package provides the module (uses shared Swift package utilities)
    - Check if documentation already exists in `<project>/dependency-docs/`
    - If not, generate documentation using `interfazzle` and cache it
    - Print the path to the documentation file on stdout
@@ -47,3 +48,4 @@ Then read this file and provide the user with relevant information about the App
 - Status messages go to stderr (you can ignore these)
 - If documentation already exists, it returns immediately with the cached path
 - The project must have been built at least once (DerivedData must exist)
+- Uses shared Swift package utilities from `~/.claude/skills/_shared/swift_packages.py`

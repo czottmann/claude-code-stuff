@@ -44,3 +44,4 @@ Returns JSON showing all packages and their modules. To find which package provi
 - The project must have been built at least once (DerivedData must exist)
 - Only shows SPM packages, not system frameworks
 - Add `--verbose` flag for debugging output (goes to stderr)
+- Uses shared Swift package utilities from `~/.claude/skills/_shared/swift_packages.py`
