@@ -64,8 +64,14 @@ def find_package_in_derived_data(package_name, xcodeproj_path):
     # Extract project name from xcodeproj path
     project_name = Path(xcodeproj_path).stem
 
+    # Xcode replaces spaces with underscores in DerivedData directory names
+    normalized_project_name = project_name.replace(" ", "_")
+
+    # Package checkout directories use lowercase names
+    package_checkout_name = package_name.lower()
+
     # Search for DerivedData directory
-    derived_data_pattern = f"{Path.home()}/Library/Developer/Xcode/DerivedData/{project_name}-*/SourcePackages/checkouts/{package_name}"
+    derived_data_pattern = f"{Path.home()}/Library/Developer/Xcode/DerivedData/{normalized_project_name}-*/SourcePackages/checkouts/{package_checkout_name}"
     matches = glob.glob(derived_data_pattern)
 
     if not matches:

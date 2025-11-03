@@ -47,8 +47,11 @@ def find_derived_data_path(project_name: str) -> Path:
             f"DerivedData directory not found at {derived_data_base}"
         )
 
+    # Xcode replaces spaces with underscores in DerivedData directory names
+    normalized_project_name = project_name.replace(" ", "_")
+
     # Find directories matching the project name
-    pattern = f"{project_name}-*"
+    pattern = f"{normalized_project_name}-*"
     matching_dirs = list(derived_data_base.glob(pattern))
 
     if not matching_dirs:
