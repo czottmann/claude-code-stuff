@@ -1,6 +1,6 @@
 ---
 name: generating-swift-package-docs
-description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when: User asks "what's import X?" or "what does import X do?" / Encountering unfamiliar import statements / Exploring a dependency's API / User asks about package documentation
+description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when user asks "what's import X?" or "what does import X do?", encountering unfamiliar import statements,  exploring a dependency's API, or user asks about package documentation
 allowed-tools: Bash, Read
 ---
 
@@ -14,7 +14,7 @@ When the user asks about an unfamiliar Swift module import (e.g., "what's import
 
 2. **Find the Xcode project path** - look for a `.xcodeproj` file in the current working directory or ask the user
 
-3. **Run the documentation generator script**: `./scripts/generate_docs.py "<module_name>" "<path_to.xcodeproj>"`
+3. **Run the documentation generator script**: `./scripts/generate_docs.py "<module_name>" "<path_to.xcodeproj>"` (script path is relative to skill directory)
 
 4. **The script will**:
    - Automatically determine which package provides the module (uses shared Swift package utilities)
@@ -38,10 +38,28 @@ This returns a file path like:
 
 Then read this file and provide the user with relevant information about the AppUpdating module.
 
+## Prerequisites
+
+- Project must be built at least once (DerivedData must exist)
+- `interfazzle` CLI tool must be installed
+- Python 3.6+
+
+## Error Handling
+
+If the script fails:
+
+- Verify the project has been built (DerivedData exists)
+- Check that the .xcodeproj path is correct
+- Ensure `interfazzle` is installed and in PATH
+- Check stderr output for specific error messages
+
 ## Important Notes
 
 - The script outputs the documentation file path to stdout
 - Status messages go to stderr (you can ignore these)
 - If documentation already exists, it returns immediately with the cached path
-- The project must have been built at least once (DerivedData must exist)
 - Uses shared Swift package utilities from `~/.claude/skills/_shared/swift_packages.py`
+
+## Additional Documentation
+
+For comprehensive details, see [reference.md](reference.md).

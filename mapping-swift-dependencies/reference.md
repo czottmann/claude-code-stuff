@@ -2,6 +2,16 @@
 
 Generates a comprehensive overview of Swift packages and their exported modules from Xcode's DerivedData. This helps quickly identify which package a specific module belongs to when seeing `import` statements in source code.
 
+## Contents
+
+- [Command-Line Usage](#command-line-usage)
+- [Example Usage](#example-usage)
+- [How It Works](#how-it-works)
+- [Prerequisites](#prerequisites)
+- [When to Use This Skill](#when-to-use-this-skill)
+- [Limitations](#limitations)
+- [Implementation](#implementation)
+
 ## Command-Line Usage
 
 ```bash
@@ -106,8 +116,5 @@ The skill consists of:
 
 - `SKILL.md` - Skill definition with YAML frontmatter
 - `reference.md` - This detailed reference documentation
-- `scripts/extract_xcode_dependencies.py` - Main implementation script
-
-## Script Location
-
-The Python script is located at: `./scripts/extract_xcode_dependencies.py` (relative to this skill's base directory)
+- `scripts/extract_xcode_dependencies.py` - Main implementation script (relative to skill directory)
+- `../_shared/swift_packages.py` - Shared Swift package utilities (used by multiple skills)

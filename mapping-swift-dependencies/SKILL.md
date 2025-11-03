@@ -12,7 +12,7 @@ When the user asks which package provides a specific module (e.g., "what package
 
 1. **Find the Xcode project path** - look for a `.xcodeproj` file in the current working directory
 
-2. **Run the dependency list script**: `./scripts/extract_xcode_dependencies.py "<path_to.xcodeproj>"`
+2. **Run the dependency list script**: `./scripts/extract_xcode_dependencies.py "<path_to.xcodeproj>"` (script path is relative to skill directory)
 
 3. **The script outputs JSON** mapping package names to their metadata:
    ```json
@@ -35,10 +35,26 @@ When the user asks which package provides a specific module (e.g., "what package
 
 Returns JSON showing all packages and their modules. To find which package provides "Module1", search for "Module1" in the `exported_modules` arrays.
 
+## Prerequisites
+
+- Project must be built at least once (DerivedData must exist)
+- Python 3.6+
+
+## Error Handling
+
+If the script fails:
+
+- Verify the project has been built (DerivedData exists)
+- Check that the .xcodeproj path is correct
+- Use `--verbose` flag for debugging information
+
 ## Important Notes
 
 - The script outputs JSON to stdout
-- The project must have been built at least once (DerivedData must exist)
 - Only shows SPM packages, not system frameworks
 - Add `--verbose` flag for debugging output (goes to stderr)
 - Uses shared Swift package utilities from `~/.claude/skills/_shared/swift_packages.py`
+
+## Additional Documentation
+
+For comprehensive details, see [reference.md](reference.md).

@@ -2,6 +2,17 @@
 
 Automatically generates comprehensive API documentation for Swift package dependencies using [`interfazzle`](https://github.com/czottmann/interfazzle).
 
+## Contents
+
+- [Features](#features)
+- [Command-Line Usage](#command-line-usage)
+- [How It Works](#how-it-works)
+- [When to Use](#when-to-use)
+- [Requirements](#requirements)
+- [Output Format](#output-format)
+- [Implementation](#implementation)
+- [Testing](#testing)
+
 ## Features
 
 - **Automatic package resolution**: Maps module names to package names using dependency information
@@ -37,7 +48,7 @@ Output:
 
 From within Claude Code, this skill automatically:
 
-1. **Resolves module to package** by calling the `swift-dependency-list` Python script directly
+1. **Resolves module to package** using shared Swift package utilities
 2. **Checks for existing documentation** in `dependency-docs/`
 3. **If docs don't exist:**
    - Locates the package in DerivedData
@@ -76,7 +87,7 @@ The skill generates (or retrieves) documentation at:
 
 - Python 3.6+
 - `interfazzle` CLI tool installed and in PATH (https://github.com/czottmann/interfazzle)
-- `swift-dependency-list` Python script available at `~/.claude/skills/swift-dependency-list/scripts/extract_xcode_dependencies.py`
+- Shared Swift package utilities (`_shared/swift_packages.py`)
 - Project must be built at least once (DerivedData must exist)
 
 ## Output Format
@@ -100,7 +111,8 @@ The skill consists of:
 
 - `SKILL.md` - Skill definition with YAML frontmatter
 - `reference.md` - This detailed reference documentation
-- `scripts/generate_docs.py` - Main implementation script
+- `scripts/generate_docs.py` - Main implementation script (relative to skill directory)
+- `../_shared/swift_packages.py` - Shared Swift package utilities (used by multiple skills)
 
 ## Testing
 
