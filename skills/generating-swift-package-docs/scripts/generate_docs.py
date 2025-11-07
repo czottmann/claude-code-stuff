@@ -71,16 +71,18 @@ def find_readme(package_dir):
 
 def generate_documentation(package_dir, package_name):
     """Run interfazzle to generate documentation."""
-    with tempfile.TemporaryDirectory() as temp_dir:
+    with tempfile.TemporaryDirectory() as temp_output_dir:
+        # Check if build artifacts already exist
+        build_db = package_dir / ".build" / "build.db"
+        cmd = ["interfazzle", "generate", "--output-dir", temp_output_dir]
+        if build_db.exists():
+            cmd.append("--generate-only")
+
         # Run interfazzle with absolute temp directory path
-        run_command(
-            ["interfazzle", "generate", "--output-dir", temp_dir],
-            cwd=package_dir,
-            capture_output=False
-        )
+        run_command(cmd, cwd=package_dir, capture_output=False)
 
         # Concatenate all markdown files
-        temp_path = Path(temp_dir)
+        temp_path = Path(temp_output_dir)
         markdown_files = sorted(temp_path.glob("**/*.md"))
 
         if not markdown_files:

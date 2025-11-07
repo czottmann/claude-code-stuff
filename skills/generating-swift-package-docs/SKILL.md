@@ -1,6 +1,6 @@
 ---
 name: generating-swift-package-docs
-description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when user asks "what's import X?" or "what does import X do?", encountering unfamiliar import statements,  exploring a dependency's API, or user asks about package documentation
+description: Generates comprehensive API documentation for Swift package dependencies on-demand. This skill helps you quickly obtain documentation for packages used in Xcode projects when you encounter unfamiliar module imports. Automatically resolves modules to packages and caches documentation for reuse. This is the primary tool for understanding individual `import` statements. Use when encountering unfamiliar import statements; when exploring a dependency's API; when user asks "what's import X?", "what does import X do?", or about package documentation.
 allowed-tools: Bash, Read
 ---
 
