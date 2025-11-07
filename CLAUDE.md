@@ -10,16 +10,13 @@ This repository contains Claude Code skills for working with Swift Package Manag
 
 ```
 .
-├── _shared/                           # Shared utilities used by multiple skills
-│   └── swift_packages.py             # Swift SPM dependency parsing and resolution
-├── generating-swift-package-docs/    # Skill: Generate API docs for dependencies
-│   ├── SKILL.md                      # Skill definition with YAML frontmatter
-│   ├── reference.md                  # Detailed documentation
-│   └── scripts/generate_docs.py      # Main implementation
-└── mapping-swift-dependencies/       # Skill: Map imports to packages
-    ├── SKILL.md                      # Skill definition with YAML frontmatter
-    ├── reference.md                  # Detailed documentation
-    └── scripts/extract_xcode_dependencies.py  # Main implementation
+└── skills/                                    # All skills live here
+    ├── _shared/                               # Shared utilities used by multiple skills
+    │   └── swift_packages.py                 # Swift SPM dependency parsing and resolution
+    └── generating-swift-package-docs/        # Skill: Generate API docs for dependencies
+        ├── SKILL.md                          # Skill definition with YAML frontmatter
+        ├── reference.md                      # Detailed documentation
+        └── scripts/generate_docs.py          # Main implementation
 ```
 
 ## Skill Architecture
@@ -42,7 +39,7 @@ Skills implement progressive disclosure per Claude Code best practices:
 
 ### Shared Utilities
 
-The `_shared/swift_packages.py` library provides common functionality:
+The `skills/_shared/swift_packages.py` library provides common functionality:
 
 - Parse Package.resolved from Xcode projects
 - Locate packages in DerivedData/SourcePackages
@@ -52,7 +49,7 @@ The `_shared/swift_packages.py` library provides common functionality:
 Skills import shared utilities via:
 
 ```python
-sys.path.insert(0, str(Path.home() / ".claude/skills/_shared"))
+sys.path.insert(0, str(Path(__file__).parent.parent / "_shared"))
 from swift_packages import get_all_dependencies, resolve_module_to_package
 ```
 
@@ -63,12 +60,8 @@ from swift_packages import get_all_dependencies, resolve_module_to_package
 Test skills by running their Python scripts directly:
 
 ```bash
-# Test mapping-swift-dependencies
-cd mapping-swift-dependencies
-./scripts/extract_xcode_dependencies.py /path/to/Project.xcodeproj --verbose
-
 # Test generating-swift-package-docs
-cd generating-swift-package-docs
+cd skills/generating-swift-package-docs
 ./scripts/generate_docs.py ModuleName /path/to/Project.xcodeproj
 ```
 
