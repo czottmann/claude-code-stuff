@@ -4,7 +4,7 @@
 mise run build-agents-md
 echo
 
-set SOURCE $MISE_PROJECT_ROOT/build/AGENTS.md
+set SOURCE $MISE_PROJECT_ROOT/.build/AGENTS.md
 set TARGETS ~/.claude/CLAUDE.md \
     ~/.codex/AGENTS.md \
     ~/.config/opencode/AGENTS.md
