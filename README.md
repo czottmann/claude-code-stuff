@@ -1,4 +1,4 @@
-# Claude Code Configuration
+# Claude Code Stuff
 
 My personal, current, production-ready configuration system for [Claude Code](https://claude.ai/code) featuring custom agents, skills, and global behavior rules.
 
@@ -10,6 +10,7 @@ This repository provides a complete setup for extending Claude Code with:
 - **Custom Skills** - Swift-specific workflows including package documentation generation and development guidelines
 - **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
 - **Superpowers Integration** - selective 20+ battle-tested engineering skills from [obra/superpowers](https://github.com/obra/superpowers)
+  - Side note: Massive thanks to [Jesse Vincent](https://github.com/obra/), that repo is positively *mental*, and I've learned quite a bit from it!
 
 ## Quick Start
 
@@ -223,4 +224,3 @@ Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 
 - **Superpowers** - [obra/superpowers](https://github.com/obra/superpowers) provides the foundation of battle-tested engineering skills
 - **Claude Code** - [claude.ai/code](https://claude.ai/code)
-
