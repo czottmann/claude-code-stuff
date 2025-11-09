@@ -4,168 +4,148 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains Claude Code skills for working with Swift Package Manager dependencies in Xcode projects. Skills are modular capabilities that extend Claude's functionality through filesystem-based components.
+This repository contains Claude Code [sub-agents](https://code.claude.com/docs/en/sub-agents), [agent skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview.md), and rules (which will be used to build global CLAUDE.md/AGENTS.md files).
+
+This is a hybrid architecture that combines:
+
+- **Custom content**: Swift-specific skills and agents for iOS/macOS development
+- **External dependencies**: The [superpowers](https://github.com/obra/superpowers) library for battle-tested engineering practices
+- **Global rules**: Compiled behavior guidelines deployed to Claude Code's global configuration
+
+Tasks are set up using [mise](https://mise.jdx.dev/tasks/). Run `mise tasks ls` to see available tasks.
 
 ## Repository Structure
 
 ```
-.
-└── skills/                                    # All skills live here
-    ├── _shared/                               # Shared utilities used by multiple skills
-    │   └── swift_packages.py                 # Swift SPM dependency parsing and resolution
-    └── generating-swift-package-docs/        # Skill: Generate API docs for dependencies
-        ├── SKILL.md                          # Skill definition with YAML frontmatter
-        ├── reference.md                      # Detailed documentation
-        └── scripts/generate_docs.py          # Main implementation
+claude-code-stuff/
+├── agents/                         # Claude Code sub-agents (4 agents)
+│   ├── code-reviewer.md            # Symlink to superpowers
+│   ├── documentation-generator.md
+│   └── search.md                   # Fast code location specialist
+│
+├── rules/                          # Source files for AGENTS.md (11 files)
+│   ├── 0-start.md                  # Foundational principles
+│   ├── 1-skills-usage.md           # Mandatory skill usage protocol
+│   ├── git.md                      # Git workflow preferences
+│   ├── kagi.md                     # Kagi search integration
+│   ├── linear.md                   # Linear issue tracker integration
+│   └── ...                         # Additional behavior rules
+│
+├── skills/                         # Combined skills directory
+│   ├── _shared/                    # Shared utilities (Swift package parser)
+│   ├── developing-with-swift/      # Custom: Swift language & Xcode tooling
+│   ├── generating-swift-package-docs/  # Custom: Swift package docs
+│   └── [19 symlinks to superpowers skills]
+│       ├── systematic-debugging
+│       ├── test-driven-development
+│       ├── brainstorming
+│       └── ...
+│
+├── libs/superpowers/               # Git submodule (obra/superpowers)
+│   ├── agents/
+│   ├── commands/
+│   └── skills/
+│
+├── mise-tasks/                     # Automation scripts (6 tasks)
+│   ├── add-libs-agents             # Link superpowers agents
+│   ├── add-libs-skills             # Link superpowers skills
+│   ├── build-agents-md             # Compile rules → AGENTS.md
+│   ├── deploy-agents-md            # Deploy to ~/.claude/
+│   ├── deploy-agents-to-claude     # Symlink agents directory
+│   └── deploy-skills-to-claude     # Symlink skills directory
+│
+├── .build/                         # Build artifacts
+│   └── AGENTS.md                   # Compiled from rules/*.md
+│
+├── CLAUDE.md                       # This file
+└── SEARCH_EXPLORE_PIPELINE_SPEC.md # Agent pipeline architecture
 ```
 
-## Skill Architecture
+## Key Components
 
-### Skill Components
+### Agents
 
-Each skill follows the Claude Code skills pattern:
+Specialized Claude Code sub-agents for specific tasks. Using dedicated agents provides:
 
-1. **SKILL.md** - Entry point with YAML frontmatter (name, description, allowed-tools)
-2. **reference.md** - Comprehensive documentation referenced from SKILL.md
-3. **scripts/** - Python implementations that output to stdout/stderr
+- 40-60% cost reduction via task-appropriate models (Haiku for search, Sonnet for exploration)
+- 30-50% speed improvement
+- Isolated context (no search noise pollution)
 
-### Progressive Disclosure
+**Available Agents**:
 
-Skills implement progressive disclosure per Claude Code best practices:
+- `search` - Fast code location finding (<10 file reads, <30s, <5K tokens)
+- `documentation-generator` - Comprehensive documentation creation
+- `swift-swiftui-developer` - Swift/SwiftUI development specialist
+- `code-reviewer` - Implementation validation against requirements
 
-- **Metadata** (YAML frontmatter): Always loaded (~100 tokens)
-- **Instructions** (SKILL.md): Loaded when skill matches user intent (<500 lines recommended)
-- **Resources** (reference.md, scripts): Loaded on-demand via explicit references
+### Skills
 
-### Shared Utilities
+Executable workflows that Claude must follow when relevant. Skills are **mandatory** when they match the task context (see `rules/1-skills-usage.md`).
 
-The `skills/_shared/swift_packages.py` library provides common functionality:
+**Custom Skills** (3):
 
-- Parse Package.resolved from Xcode projects
-- Locate packages in DerivedData/SourcePackages
-- Extract module names from Package.swift files
-- Resolve module names to package names
+- `developing-with-swift` - Style guidelines, Swift techniques, Xcode tools
+- `generating-swift-package-docs` - On-demand Swift package API documentation
+- `_shared` - Reusable utilities (Swift package parser)
 
-Skills import shared utilities via:
+**Linked Superpowers Skills** (19):
 
-```python
-sys.path.insert(0, str(Path(__file__).parent.parent / "_shared"))
-from swift_packages import get_all_dependencies, resolve_module_to_package
-```
+- Testing: test-driven-development, testing-anti-patterns
+- Debugging: systematic-debugging, root-cause-tracing
+- Development: using-git-worktrees, finishing-a-development-branch
+- Collaboration: brainstorming, requesting-code-review, receiving-code-review
+- Planning: writing-plans, executing-plans, subagent-driven-development
+- And more...
 
-## Testing Skills
+### Rules
 
-### Manual Testing
+Source material for global Claude Code behavior. Individual rule files in `/rules/` are compiled into `.build/AGENTS.md` and deployed to:
 
-Test skills by running their Python scripts directly:
+- `~/.claude/CLAUDE.md`
+- `~/.codex/AGENTS.md`
+- `~/.config/opencode/AGENTS.md`
+
+**Build Process**:
 
 ```bash
-# Test generating-swift-package-docs
-cd skills/generating-swift-package-docs
-./scripts/generate_docs.py ModuleName /path/to/Project.xcodeproj
+mise run build-agents-md    # Concatenate rules/*.md → .build/AGENTS.md
+mise run deploy-agents-md   # Symlink to global config locations
 ```
 
-### Prerequisites
+## Mise Tasks
 
-Skills require:
+Run `mise tasks ls` to see all available tasks. Common workflows:
 
-- Python 3.6+
-- Xcode project built at least once (DerivedData must exist)
-- For docs generation: `interfazzle` CLI tool (https://github.com/czottmann/interfazzle)
+### Initial Setup
 
-## Skill Development Guidelines
-
-When modifying or creating skills, follow these patterns:
-
-### Naming
-
-- Use gerund form (verb + -ing): `mapping-`, `generating-`
-- Avoid generic terms like "helper", "utils"
-- Be specific and descriptive
-
-### SKILL.md Structure
-
-```markdown
----
-name: skill-name
-description: Specific description with trigger terms. Use when...
-allowed-tools: Bash, Read
----
-
-Brief introduction.
-
-## How to Use This Skill
-
-Step-by-step usage instructions...
-
-## Prerequisites
-
-Required tools and setup...
-
-## Error Handling
-
-Troubleshooting guidance...
-
-## Additional Documentation
-
-For comprehensive details, see [reference.md](reference.md).
+```bash
+mise run add-libs-skills       # Link superpowers skills
+mise run add-libs-agents       # Link superpowers agents
+mise run build-agents-md       # Build AGENTS.md
 ```
 
-### Script Conventions
+### Deploy Globally
 
-- Output results to **stdout**
-- Status/progress messages to **stderr**
-- Use `tempfile` module for temporary directories
-- Implement proper error handling with helpful messages
-- Support `--verbose` flag for debugging
+```bash
+mise run deploy-agents-to-claude   # ~/.claude/agents → ./agents
+mise run deploy-skills-to-claude   # ~/.claude/skills → ./skills
+mise run deploy-agents-md          # ~/.claude/CLAUDE.md → .build/AGENTS.md
+```
 
-### Documentation
+## Organization Principles
 
-- Keep SKILL.md under 500 lines
-- Add table of contents to reference.md if >100 lines
-- Reference files explicitly from SKILL.md
-- Keep file references one level deep (SKILL.md → reference.md only)
-- Use relative paths: `./scripts/script.py (relative to skill directory)`
+1. **Separation of Concerns**: Rules (behavior) vs Skills (workflows) vs Agents (specialized tasks)
+2. **Symlink Architecture**: Easy updates - change source, links reflect instantly
+3. **Compilation Pattern**: Small, focused rule files → compiled AGENTS.md
+4. **Domain Specialization**: Swift-specific content + generic engineering practices
+5. **Deployment Flexibility**: User-level (~/.claude/) vs project-level (.claude/)
 
-## Git Commit Conventions
+## Development Guidelines
 
-Use commit type prefixes in square brackets:
+When working in this repository:
 
-- `[DOC]` - Documentation changes
-- `[REFACTOR]` - Code restructuring without changing functionality
-- `[FIX]` - Bug fixes
-- `[FEAT]` - New features
-- `[CHG]` - General changes to existing code
-
-Example: `[REFACTOR] Use Python tempfile module for temporary directories`
-
-## Key Implementation Details
-
-### Dependency Resolution Flow
-
-1. Read Package.resolved from Xcode project
-2. Locate DerivedData/SourcePackages/checkouts for the project
-3. Parse Package.swift files to extract module names
-4. Map module imports to their source packages
-
-### Documentation Generation Flow
-
-1. Resolve module name to package using shared utilities
-2. Check for cached documentation in `<project>/dependency-docs/`
-3. If not cached:
-   - Locate package in DerivedData
-   - Run `interfazzle generate` with OS temp directory
-   - Concatenate generated markdown files
-   - Append package README if present
-   - Save as `<package>-<major.minor>.md`
-
-### Error Handling
-
-Scripts handle common errors:
-
-- Missing DerivedData (project not built)
-- Missing Package.resolved
-- Package not found in checkouts
-- Missing git tags for versioning
-
-All error messages go to stderr with actionable guidance.
+1. **Editing Rules**: Modify files in `/rules/`, then run `mise run build-agents-md`
+2. **Adding Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
+3. **Creating Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
+4. **Testing Changes**: Deploy locally before committing
+5. **Dependencies**: Update superpowers submodule with `git submodule update --remote`
