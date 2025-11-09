@@ -206,7 +206,9 @@ Using specialized agents with appropriate models (Haiku for search, Sonnet for c
 
 ## License
 
-[Your License Here]
+Legally: [MIT License.](LICENSE.md)
+
+Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 
 ## Credits
 
