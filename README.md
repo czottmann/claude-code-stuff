@@ -172,7 +172,6 @@ cd skills/generating-swift-package-docs
 - **CLAUDE.md** - Detailed repository documentation (loaded by Claude Code)
 - **agents/README.md** - Agent system documentation
 - **skills/*/SKILL.md** - Individual skill documentation
-- **SEARCH_EXPLORE_PIPELINE_SPEC.md** - Agent pipeline architecture
 
 ## Why This Approach?
 
