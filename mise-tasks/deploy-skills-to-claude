@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 #MISE description="Makes the Claude user folder's `skills/` folder a symlink of `./skills/`"
 
-set SOURCE (pwd)/skills
+set SOURCE $MISE_PROJECT_ROOT/skills
 set TARGET ~/.claude/skills
 
 gum confirm "Symlinking $SOURCE to $TARGET" --default=No || exit 1
@@ -12,3 +12,4 @@ if test -e $TARGET
 end
 
 ln -s $SOURCE $TARGET
+echo "✅ Done!"

@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 #MISE description="Makes the Claude user folder's `agents/` folder a symlink of `./agents/`"
 
-set SOURCE (pwd)/agents
+set SOURCE $MISE_PROJECT_ROOT/agents
 set TARGET ~/.claude/agents
 
 gum confirm "Symlinking $SOURCE to $TARGET" --default=No || exit 1
@@ -12,3 +12,4 @@ if test -e $TARGET
 end
 
 ln -s $SOURCE $TARGET
+echo "✅ Done!"
