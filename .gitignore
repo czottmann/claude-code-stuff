@@ -176,6 +176,7 @@ Desktop.ini
 *~
 
 # Temporary files
+*.build
 *.tmp
 *.temp
 *.swp
