@@ -21,5 +21,5 @@ for SKILL in brainstorming \
     verification-before-completion \
     writing-plans \
     writing-skills
-    ln -sf "$MISE_PROJECT_ROOT/libs/superpowers/skills/$SKILL" skills/
+    ln -sf "$MISE_PROJECT_ROOT/libs/superpowers/skills/$SKILL" "skills/superpowers:$SKILL"
 end
