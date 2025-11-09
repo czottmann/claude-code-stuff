@@ -247,7 +247,6 @@ After creating or modifying an agent:
 ## References
 
 - [Claude Code Subagents Documentation](https://code.claude.com/docs/en/sub-agents.md)
-- [Search → Explore Pipeline Specification](../SEARCH_EXPLORE_PIPELINE_SPEC.md)
 - [Claude Code Documentation](https://code.claude.com/docs)
 
 ## Contributing

@@ -57,8 +57,7 @@ claude-code-stuff/
 ├── .build/                         # Build artifacts
 │   └── AGENTS.md                   # Compiled from rules/*.md
 │
-├── CLAUDE.md                       # This file
-└── SEARCH_EXPLORE_PIPELINE_SPEC.md # Agent pipeline architecture
+└── CLAUDE.md                       # This file
 ```
 
 ## Key Components
