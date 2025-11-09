@@ -202,7 +202,16 @@ Using specialized agents with appropriate models (Haiku for search, Sonnet for c
 - **Python 3.6+** - For skill scripts
 - **gum** (optional) - For interactive confirmations (`brew install gum`)
 - **Xcode** (optional) - For Swift-related features
-- **interfazzle** (optional) - For Swift package docs (`brew install czottmann/tools/interfazzle`)
+- **interfazzle** (optional) - For Swift package docs (https://github.com/czottmann/interfazzle)
+
+## Author
+
+Carlo Zottmann, <carlo@zottmann.dev>, https://c.zottmann.dev, https://github.com/czottmann.
+
+This project is neither affiliated with nor endorsed by Linear. I'm just a very happy customer.
+
+> [!TIP]
+> I make Shortcuts-related macOS & iOS productivity apps like [Actions For Obsidian](https://actions.work/actions-for-obsidian), [Browser Actions](https://actions.work/browser-actions) (which adds Shortcuts support for several major browsers), and [BarCuts](https://actions.work/barcuts) (a surprisingly useful contextual Shortcuts launcher). Check them out!
 
 ## License
 
@@ -215,11 +224,3 @@ Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 - **Superpowers** - [obra/superpowers](https://github.com/obra/superpowers) provides the foundation of battle-tested engineering skills
 - **Claude Code** - [claude.ai/code](https://claude.ai/code)
 
-## Contributing
-
-Contributions welcome! Please follow the existing patterns:
-
-- Use `[TYPE]` prefix in commit messages (DOC, FEAT, FIX, REFACTOR, CHG, CHORE)
-- Keep skills under 500 lines in SKILL.md
-- Test agents and skills before committing
-- Update CLAUDE.md when adding new components
