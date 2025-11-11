@@ -32,7 +32,6 @@ claude-code-stuff/
 │   └── ...                         # Additional behavior rules
 │
 ├── skills/                         # Combined skills directory
-│   ├── _shared/                    # Shared utilities (Swift package parser)
 │   ├── developing-with-swift/      # Custom: Swift language & Xcode tooling
 │   ├── generating-swift-package-docs/  # Custom: Swift package docs
 │   └── [19 symlinks to superpowers skills]
@@ -80,11 +79,10 @@ Specialized Claude Code sub-agents for specific tasks. Using dedicated agents pr
 
 Executable workflows that Claude must follow when relevant. Skills are **mandatory** when they match the task context (see `rules/1-skills-usage.md`).
 
-**Custom Skills** (3):
+**Custom Skills** (2):
 
 - `developing-with-swift` - Style guidelines, Swift techniques, Xcode tools
 - `generating-swift-package-docs` - On-demand Swift package API documentation
-- `_shared` - Reusable utilities (Swift package parser)
 
 **Linked Superpowers Skills** (19):
 

@@ -17,7 +17,7 @@ When the user asks about an unfamiliar Swift module import (e.g., "what's import
 3. **Run the documentation generator script**: `./scripts/generate_docs.py "<module_name>" "<path_to.xcodeproj>"` (script path is relative to skill directory)
 
 4. **The script will**:
-   - Automatically determine which package provides the module (uses shared Swift package utilities)
+   - Automatically determine which package provides the module
    - Check if documentation already exists in `<project>/dependency-docs/`
    - If not, generate documentation using `interfazzle` and cache it
    - Print the path to the documentation file on stdout
@@ -58,7 +58,6 @@ If the script fails:
 - The script outputs the documentation file path to stdout
 - Status messages go to stderr (you can ignore these)
 - If documentation already exists, it returns immediately with the cached path
-- Uses shared Swift package utilities from `~/.claude/skills/_shared/swift_packages.py`
 
 ## Additional Documentation
 

@@ -9,8 +9,9 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-# Import shared utilities
-sys.path.insert(0, str(Path.home() / ".claude/skills/_shared"))
+# Import utilities from local directory
+scripts_dir = Path(__file__).parent
+sys.path.insert(0, str(scripts_dir))
 from swift_packages import (
     get_all_dependencies,
     resolve_module_to_package,
