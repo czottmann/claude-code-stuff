@@ -18,6 +18,7 @@ for SKILL in brainstorming \
     testing-anti-patterns \
     testing-skills-with-subagents \
     using-git-worktrees \
+    using-superpowers \
     verification-before-completion \
     writing-plans \
     writing-skills

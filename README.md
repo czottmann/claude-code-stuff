@@ -92,32 +92,32 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ This Repository (claude-code-stuff)                         │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  Custom Content          External Dependencies              │
-│  ├── agents/            ├── libs/superpowers/              │
-│  ├── skills/            │   ├── agents/                    │
-│  └── rules/             │   ├── skills/                    │
-│                         │   └── commands/                  │
-│                                                              │
-│  Build System                                               │
-│  └── mise-tasks/        ──▶  .build/AGENTS.md              │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│ This Repository (claude-code-stuff)                 │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  Custom Content         External Dependencies       │
+│  ├── agents/            ├── libs/superpowers/       │
+│  ├── skills/            │   ├── agents/             │
+│  └── rules/             │   ├── skills/             │
+│                         │   └── commands/           │
+│                                                     │
+│  Build System                                       │
+│  └── mise-tasks/        ──▶  .build/AGENTS.md       │
+│                                                     │
+└─────────────────────────────────────────────────────┘
                           │
                           │ Deploy (symlinks)
                           ▼
-┌─────────────────────────────────────────────────────────────┐
-│ Claude Code User Directory (~/.claude/)                     │
-├─────────────────────────────────────────────────────────────┤
-│                                                              │
-│  ~/.claude/agents/      ──▶  this/agents/                  │
-│  ~/.claude/skills/      ──▶  this/skills/                  │
-│  ~/.claude/CLAUDE.md    ──▶  this/.build/AGENTS.md         │
-│                                                              │
-└─────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────┐
+│ Claude Code User Directory (~/.claude/)             │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  ~/.claude/agents/      ──▶  this/agents/           │
+│  ~/.claude/skills/      ──▶  this/skills/           │
+│  ~/.claude/CLAUDE.md    ──▶  this/.build/AGENTS.md  │
+│                                                     │
+└─────────────────────────────────────────────────────┘
 ```
 
 ## Key Concepts
@@ -127,6 +127,7 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 - **Rules** (`/rules/`) - Individual behavior guidelines, compiled into AGENTS.md
 - **Skills** (`/skills/`) - Executable workflows that Claude must follow
 - **Agents** (`/agents/`) - Specialized sub-agents for specific tasks
+- **Hook scripts** (`/hook-scripts`) - Used with CC's [hooks](https://code.claude.com/docs/en/hooks)
 
 ### Symlink Architecture
 
