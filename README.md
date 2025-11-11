@@ -32,9 +32,8 @@ mise run add-libs-agents
 mise run build-agents-md
 
 # Deploy to Claude Code
-mise run deploy-agents-to-claude
-mise run deploy-skills-to-claude
-mise run deploy-agents-md
+mise run symlink-agents-md
+mise run symlink-folders-to-claude
 ```
 
 ### Verify Installation
@@ -139,7 +138,7 @@ Global rules are modular:
 
 1. Write small, focused rule files in `/rules/`
 2. Run `mise run build-agents-md` to concatenate
-3. Deploy to `~/.claude/CLAUDE.md` via `mise run deploy-agents-md`
+3. Deploy to `~/.claude/CLAUDE.md` via `mise run symlink-agents-md`
 
 ## Common Tasks
 
@@ -149,7 +148,7 @@ git submodule update --remote
 
 # Rebuild global rules after editing /rules/
 mise run build-agents-md
-mise run deploy-agents-md
+mise run symlink-agents-md
 
 # Add a new custom skill
 mkdir -p skills/my-new-skill

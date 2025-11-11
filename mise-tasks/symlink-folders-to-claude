@@ -1,0 +1,31 @@
+#!/usr/bin/env fish
+#MISE description="Symlinks selected folders to the Claude user folder (w/ confirmation)"
+
+set -l selection (
+    gum choose \
+        --header "Which folder?" \
+        --no-limit \
+        --selected='*' \
+        "agents" "commands" "hooks-scripts" "skills"
+)
+
+if test -z "$selection"
+    echo "Nothing selected, exiting"
+    exit 0
+end
+
+for folder in $selection
+    set SOURCE $MISE_PROJECT_ROOT/$folder
+    set TARGET ~/.claude/$folder
+
+    gum confirm "Symlinking ./$folder to $TARGET" --default=No || continue
+
+    if test -e $TARGET
+        gum confirm "$TARGET exists, overwrite?" --default=No || exit 1
+        rm -rf $TARGET
+    end
+
+    ln -s $SOURCE $TARGET
+end
+
+echo "✅ Done!"

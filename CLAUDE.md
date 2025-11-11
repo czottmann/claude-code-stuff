@@ -50,9 +50,8 @@ claude-code-stuff/
 │   ├── add-libs-agents             # Link superpowers agents
 │   ├── add-libs-skills             # Link superpowers skills
 │   ├── build-agents-md             # Compile rules → AGENTS.md
-│   ├── deploy-agents-md            # Deploy to ~/.claude/
-│   ├── deploy-agents-to-claude     # Symlink agents directory
-│   └── deploy-skills-to-claude     # Symlink skills directory
+│   ├── symlink-agents-md           # Symlink AGENTS.md to ~/.claude/CLAUDE.md etc.
+│   └── symlink-folders-to-claude   # Symlink agents, skills, etc. directory
 │
 ├── .build/                         # Build artifacts
 │   └── AGENTS.md                   # Compiled from rules/*.md
@@ -107,8 +106,8 @@ Source material for global Claude Code behavior. Individual rule files in `/rule
 **Build Process**:
 
 ```bash
-mise run build-agents-md    # Concatenate rules/*.md → .build/AGENTS.md
-mise run deploy-agents-md   # Symlink to global config locations
+mise run build-agents-md   # Concatenate rules/*.md → .build/AGENTS.md
+mise run symlink-agents-md # Symlink to global config locations
 ```
 
 ## Mise Tasks
@@ -118,17 +117,15 @@ Run `mise tasks ls` to see all available tasks. Common workflows:
 ### Initial Setup
 
 ```bash
-mise run add-libs-skills       # Link superpowers skills
-mise run add-libs-agents       # Link superpowers agents
-mise run build-agents-md       # Build AGENTS.md
+mise run add-libs-skills # Link superpowers skills
+mise run add-libs-agents # Link superpowers agents
+mise run build-agents-md # Build AGENTS.md
 ```
 
 ### Deploy Globally
 
 ```bash
-mise run deploy-agents-to-claude   # ~/.claude/agents → ./agents
-mise run deploy-skills-to-claude   # ~/.claude/skills → ./skills
-mise run deploy-agents-md          # ~/.claude/CLAUDE.md → .build/AGENTS.md
+mise run symlink-folders-to-claude # links ./agents, ./skills, etc. to  ~/.claude/
 ```
 
 ## Organization Principles
