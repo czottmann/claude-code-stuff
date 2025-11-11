@@ -10,7 +10,7 @@ This repository provides a complete setup for extending Claude Code with:
 - **Custom Skills** - Swift-specific workflows including package documentation generation and development guidelines
 - **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
 - **Superpowers Integration** - selective 20+ battle-tested engineering skills from [obra/superpowers](https://github.com/obra/superpowers)
-  - Side note: Massive thanks to [Jesse Vincent](https://github.com/obra/), that repo is positively *mental*, and I've learned quite a bit from it!
+  - Side note: Massive thanks to [Jesse Vincent](https://github.com/obra/), that repo is positively _mental_, and I've learned quite a bit from it!
 
 ## Quick Start
 
@@ -59,13 +59,12 @@ Specialized sub-agents that provide **40-60% cost reduction** and **30-50% speed
 - **documentation-generator** - Comprehensive documentation creation
 - **code-reviewer** - Implementation validation (from superpowers)
 
-### 🎯 Custom Skills (3)
+### 🎯 Custom Skills (2)
 
 Domain-specific workflows for Swift development:
 
 - **developing-with-swift** - Style guidelines, Swift techniques, Xcode tooling
 - **generating-swift-package-docs** - On-demand Swift package API documentation
-- **_shared** - Reusable utilities (Swift package parser)
 
 ### 🦸 Superpowers Skills (19)
 
