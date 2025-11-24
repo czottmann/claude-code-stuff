@@ -7,7 +7,7 @@ set SCRIPT_DIR (cd (dirname (status current-filename)) && pwd)
 echo '{
   hookSpecificOutput: {
     hookEventName: "UserPromptSubmit",
-    additionalContext: "<IMPORTANT>Remember to use relevant skills</IMPORTANT>"
+    additionalContext: "<EXTREMELY-IMPORTANT>Check this request against your list of skills, and if one or more apply, use them.</EXTREMELY-IMPORTANT>"
   }
 }'
 
