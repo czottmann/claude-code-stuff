@@ -45,6 +45,27 @@ Use these exclusively unless explicitly told otherwise.
 4. Add body for complex changes explaining why
 5. Execute commit
 
+#### Technical Format:
+
+- Use a single `-m` for the title (first line)
+- Use a second `-m` for the body (description, bullets, ticket refs)
+- Within the body `-m`, use literal newlines to separate paragraphs
+- Example for multi-line commits:
+
+```bash
+git commit -m "[TYPE] Title" -m "Description paragraph.
+
+- Bullet point 1
+- Bullet point 2
+- Bullet point 3
+
+Part of TICKET-123
+Part of TICKET-456"
+```
+
+- Do NOT use separate `-m` flags for each bullet point or line
+- This keeps the commit message properly formatted without extra blank lines
+
 #### Best Practices:
 
 - Keep commits atomic and focused
