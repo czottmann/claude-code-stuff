@@ -17,32 +17,36 @@
 #
 
 # Find argus
-set -l argus_path (which argus 2>/dev/null)
-if test -z "$argus_path"
+set -x XCBBUILDSERVICE_PATH (which argus 2>/dev/null)
+if test -z "$XCBBUILDSERVICE_PATH"
     echo "Error: argus not found in PATH" >&2
     echo "Install argus or ensure it's in your PATH" >&2
     exit 1
 end
 
 # Generate unique build trace ID
-set -l build_trace_id (uuidgen)
+set -x BUILD_TRACE_ID (uuidgen)
 
 # Print the BUILD_TRACE_ID so it can be captured/referenced
-echo "BUILD_TRACE_ID=$build_trace_id" >&2
+echo "BUILD_TRACE_ID=$BUILD_TRACE_ID" >&2
 
 # Run xcodebuild with argus integration
-env XCBBUILDSERVICE_PATH=$argus_path BUILD_TRACE_ID=$build_trace_id xcodebuild $argv
+xcodebuild $argv #&>/dev/null
 set -l exit_code $status
 
 # Print reminder about querying results
 if test $exit_code -ne 0
     echo "" >&2
     echo "Build failed. Query errors with:" >&2
-    echo "  argus trace errors --build $build_trace_id" >&2
+    echo "  argus trace errors --latest" >&2
+    ### Doesn't work, argus 0.17 auto-generates a different UUID
+    # echo "  argus trace errors --build $BUILD_TRACE_ID" >&2
 else
     echo "" >&2
     echo "Build succeeded. Query summary with:" >&2
-    echo "  argus trace summary --build $build_trace_id" >&2
+    echo "  argus trace summary --latest" >&2
+    ### Doesn't work, argus 0.17 auto-generates a different UUID
+    # echo "  argus trace summary --build $BUILD_TRACE_ID" >&2
 end
 
 exit $exit_code
