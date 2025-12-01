@@ -19,3 +19,13 @@ jq --arg ctx "$additional_context" \
       }'
 
 exit 0
+
+# {
+#   "hooks": [
+#     {
+#       "command": "~/.claude/hooks-scripts/session-start.fish",
+#       "type": "command"
+#     }
+#   ],
+#   "matcher": "startup|resume|clear|compact"
+# },
