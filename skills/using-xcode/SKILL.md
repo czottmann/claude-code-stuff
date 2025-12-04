@@ -10,8 +10,10 @@ When running Xcode builds, use the `xcodebuild-wrapper` script to automatically 
 ### 1. Run builds with the wrapper script
 
 ```bash
-xcodebuild-wrapper -scheme "Actions For Obsidian (macOS)" -destination "platform=macOS"
+./xcodebuild-wrapper build -scheme "Actions For Obsidian (macOS)"
 ```
+
+It will print out a session ID (`SWB_BUILD_TRACE_ID`).
 
 The wrapper automatically:
 
@@ -23,16 +25,10 @@ The wrapper automatically:
 ### 2. Query build results using the session ID
 
 ```bash
-argus trace summary --build latest
-argus trace errors --build latest
-argus trace slowest-targets --build latest --limit 5
-argus trace bottlenecks --build latest
-```
-
-Or use "latest" to query the most recent build:
-
-```bash
-argus trace summary --build latest
+argus trace summary --build $SWB_BUILD_TRACE_ID
+argus trace errors --build $SWB_BUILD_TRACE_ID
+argus trace slowest-targets --build $SWB_BUILD_TRACE_ID --limit 5
+argus trace bottlenecks --build $SWB_BUILD_TRACE_ID
 ```
 
 ### 3. Use `--json` flag for programmatic access
