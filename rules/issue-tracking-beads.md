@@ -1,4 +1,4 @@
-## Beads: Issue tracking for agents
+## Issue Tracking for agents with bd (beads)
 
 **IMPORTANT**: This project uses **bd (beads)** for ALL agentic issue tracking. Do NOT use markdown
 TODOs, task lists, or other tracking methods (except Linear which is used for human-level tracking).
@@ -21,6 +21,7 @@ bd ready --json
 ```bash
 bd create "Issue title" -t bug|feature|task -p 0-4 --json
 bd create "Issue title" -p 1 --deps discovered-from:bd-123 --json
+bd create "Subtask" --parent <epic-id> --json  # Hierarchical subtask (gets ID like epic-id.1)
 ```
 
 **Claim and update:**
@@ -59,7 +60,13 @@ bd close bd-42 --reason "Completed" --json
    - `bd create "Found bug" -p 1 --deps discovered-from:<parent-id>`
 5. **Complete**: `bd close <id> --reason "Done"`
 6. **Commit together**: Always commit the `.beads/issues.jsonl` file together with the code changes
-   so issue state stays in sync with code state
+   so issue state stays in sync with code state. When working on a Linear ticket, use commit message
+   format: 
+   ```
+   <message>
+   
+   Part of ZCO-123.
+   ```
 
 ### Auto-Sync
 
@@ -96,6 +103,11 @@ history/
 - ✅ Preserves planning history for archeological research
 - ✅ Reduces noise when browsing the project
 
+### CLI Help
+
+Run `bd <command> --help` to see all available flags for any command.
+For example: `bd create --help` shows `--parent`, `--deps`, `--assignee`, etc.
+
 ### Important Rules
 
 - ✅ Use bd for ALL task tracking
@@ -103,6 +115,7 @@ history/
 - ✅ Link discovered work with `discovered-from` dependencies
 - ✅ Check `bd ready` before asking "what should I work on?"
 - ✅ Move legacy AI planning docs to history/ directory (new designs go in Beads epic descriptions)
+- ✅ Run `bd <cmd> --help` to discover available flags
 - ❌ Do NOT create markdown TODO lists
 - ❌ Do NOT use external issue trackers other than Linear
 - ❌ Do NOT duplicate tracking systems

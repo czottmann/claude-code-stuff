@@ -14,6 +14,24 @@ When beginning work on a Linear ticket (e.g., ZCO-123):
    ```
 3. All implementation sub-tasks go under this epic as child issues using `--parent <epic-id>`
 
+### Git Commit Messages
+
+All commits related to a Linear ticket MUST reference it:
+```
+<descriptive message>
+
+Part of ZCO-123.
+```
+
+When also closing a Beads issue:
+```
+<message>
+
+Part of ZCO-123. Closes bd-42.
+```
+
+This ensures Linear ticket traceability in git history even after Beads cleanup.
+
 ### Discovering Work During Implementation
 
 When you discover work that needs doing while implementing something else:
@@ -54,3 +72,16 @@ When revisiting a Linear ticket that seems vague, use Beads to trace its origin:
 - Beads database lives in `.beads/issues.jsonl` (git-tracked)
 - After significant Beads work, commit the JSONL changes
 - Pull before starting sessions to get latest issue state
+
+### Completing a Linear Ticket
+
+When all Beads issues under an epic are closed:
+
+1. Update the Linear ticket with a summary:
+   - What was implemented
+   - Any discovered work filed as separate Linear tickets
+   - Notable decisions or deviations from original scope
+2. Move the Linear ticket to appropriate status
+3. Clean up Beads: `bd cleanup --days 7`
+
+The Linear ticket becomes the permanent record; Beads issues are ephemeral working memory.
