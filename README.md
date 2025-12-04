@@ -6,11 +6,10 @@ My personal, current, production-ready configuration system for [Claude Code](ht
 
 This repository provides a complete setup for extending Claude Code with:
 
-- **Custom Agents** - Specialized sub-agents for Swift/iOS development, documentation generation, and fast code search
-- **Custom Skills** - Swift-specific workflows including package documentation generation and development guidelines
+- **Custom Agents** - Specialized sub-agents for documentation generation and fast code search
+- **Custom Skills** - Workflows for Swift development, Xcode tooling, brainstorming, planning, and issue tracking
 - **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
-- **Superpowers Integration** - selective 20+ battle-tested engineering skills from [obra/superpowers](https://github.com/obra/superpowers)
-  - Side note: Massive thanks to [Jesse Vincent](https://github.com/obra/), that repo is positively _mental_, and I've learned quite a bit from it!
+- **Beads Integration** - Git-friendly issue tracking via [obra/beads](https://github.com/obra/beads) for agent workflows
 
 ## Quick Start
 
@@ -24,10 +23,6 @@ This repository provides a complete setup for extending Claude Code with:
 ### Setup
 
 ```bash
-# Link external skills and agents
-mise run add-libs-skills
-mise run add-libs-agents
-
 # Build global rules
 mise run build-agents-md
 
@@ -51,31 +46,24 @@ ls -la ~/.claude/skills/
 
 ## What You Get
 
-### 🤖 Agents (4)
+### 🤖 Agents (2)
 
 Specialized sub-agents that provide **40-60% cost reduction** and **30-50% speed improvement** through task-appropriate model selection:
 
 - **search** - Lightning-fast code location (<10 file reads, <30s, <5K tokens)
 - **documentation-generator** - Comprehensive documentation creation
-- **code-reviewer** - Implementation validation (from superpowers)
 
-### 🎯 Custom Skills (2)
+### 🎯 Skills (7)
 
-Domain-specific workflows for Swift development:
+Workflows for development, planning, and collaboration:
 
-- **developing-with-swift** - Style guidelines, Swift techniques, Xcode tooling
+- **developing-with-swift** - Style guidelines, Swift techniques
 - **generating-swift-package-docs** - On-demand Swift package API documentation
-
-### 🦸 Superpowers Skills (19)
-
-Battle-tested engineering practices:
-
-- **Testing** - test-driven-development, testing-anti-patterns, condition-based-waiting
-- **Debugging** - systematic-debugging, root-cause-tracing, defense-in-depth
-- **Development** - using-git-worktrees, finishing-a-development-branch
-- **Collaboration** - brainstorming, requesting-code-review, receiving-code-review
-- **Planning** - writing-plans, executing-plans, subagent-driven-development
-- And more...
+- **using-xcode** - Xcode tooling and build workflows
+- **brainstorming** - Collaborative idea refinement
+- **making-plans** - Breaking epics into implementation tasks
+- **using-linear** - Linear issue tracker integration
+- **using-beads** - Git-friendly agent issue tracking (from libs/beads)
 
 ### 📜 Global Rules (11)
 
@@ -95,13 +83,12 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 ├─────────────────────────────────────────────────────┤
 │                                                     │
 │  Custom Content         External Dependencies       │
-│  ├── agents/            ├── libs/superpowers/       │
-│  ├── skills/            │   ├── agents/             │
-│  └── rules/             │   ├── skills/             │
-│                         │   └── commands/           │
+│  ├── agents/            └── libs/beads/             │
+│  ├── skills/                (issue tracking)        │
+│  └── rules/                                         │
 │                                                     │
 │  Build System                                       │
-│  └── mise-tasks/        ──▶  .build/AGENTS.md       │
+│  └── .mise/tasks/       ──▶  .build/AGENTS.md       │
 │                                                     │
 └─────────────────────────────────────────────────────┘
                           │
@@ -142,8 +129,8 @@ Global rules are modular:
 ## Common Tasks
 
 ```bash
-# Update superpowers to latest
-git submodule update --remote
+# Update beads to latest
+git submodule update --remote libs/beads
 
 # Rebuild global rules after editing /rules/
 mise run build-agents-md
@@ -164,12 +151,11 @@ cd skills/generating-swift-package-docs
 2. **Add Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
 3. **Create Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
 4. **Test Locally**: Deploy to `~/.claude/` before committing
-5. **Update Dependencies**: `git submodule update --remote` for superpowers
+5. **Update Dependencies**: `git submodule update --remote libs/beads`
 
 ## Documentation
 
 - **CLAUDE.md** - Detailed repository documentation (loaded by Claude Code)
-- **agents/README.md** - Agent system documentation
 - **skills/*/SKILL.md** - Individual skill documentation
 
 ## Why This Approach?
@@ -220,5 +206,5 @@ Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 
 ## Credits
 
-- **Superpowers** - [obra/superpowers](https://github.com/obra/superpowers) provides the foundation of battle-tested engineering skills
+- **Beads** - [obra/beads](https://github.com/obra/beads) provides git-friendly issue tracking for agent workflows
 - **Claude Code** - [claude.ai/code](https://claude.ai/code)

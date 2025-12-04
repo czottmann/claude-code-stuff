@@ -1,6 +1,0 @@
-#!/usr/bin/env fish
-#MISE description="Adds selected agents from `./libs/superpowers/` to `./agents/` (linking them)"
-
-for AGENT in libs/superpowers/agents/code-reviewer.md
-    ln -sf $MISE_PROJECT_ROOT/$AGENT agents/
-end
