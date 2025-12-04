@@ -9,7 +9,7 @@ This repository provides a complete setup for extending Claude Code with:
 - **Custom Agents** - Specialized sub-agents for documentation generation and fast code search
 - **Custom Skills** - Workflows for Swift development, Xcode tooling, brainstorming, planning, and issue tracking
 - **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
-- **Beads Integration** - Git-friendly issue tracking via [obra/beads](https://github.com/obra/beads) for agent workflows
+- **Beads Integration** - Git-friendly issue tracking via [steveyegge/beads](https://github.com/steveyegge/beads) for agent workflows
 
 ## Quick Start
 
@@ -206,5 +206,5 @@ Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 
 ## Credits
 
-- **Beads** - [obra/beads](https://github.com/obra/beads) provides git-friendly issue tracking for agent workflows
+- **Beads** - [steveyegge/beads](https://github.com/steveyegge/beads) provides git-friendly issue tracking for agent workflows
 - **Claude Code** - [claude.ai/code](https://claude.ai/code)

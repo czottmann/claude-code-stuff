@@ -9,7 +9,7 @@ This repository contains Claude Code [sub-agents](https://code.claude.com/docs/e
 This is a hybrid architecture that combines:
 
 - **Custom content**: Skills and agents for iOS/macOS development, planning, and collaboration
-- **External dependencies**: The [beads](https://github.com/obra/beads) library for git-friendly issue tracking
+- **External dependencies**: The [beads](https://github.com/steveyegge/beads) library for git-friendly issue tracking
 - **Global rules**: Compiled behavior guidelines deployed to Claude Code's global configuration
 
 Tasks are set up using [mise](https://mise.jdx.dev/tasks/). Run `mise tasks ls` to see available tasks.
@@ -39,7 +39,7 @@ claude-code-stuff/
 │   ├── using-linear/               # Linear integration
 │   └── using-beads                 # Symlink to libs/beads skill
 │
-├── libs/beads/                     # Git submodule (obra/beads)
+├── libs/beads/                     # Git submodule (steveyegge/beads)
 │   └── examples/claude-code-skill  # Issue tracking skill
 │
 ├── .mise/tasks/                    # Automation scripts (3 tasks)
