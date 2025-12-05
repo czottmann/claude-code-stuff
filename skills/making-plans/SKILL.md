@@ -63,7 +63,6 @@ bd create --type task --parent <epic-id> "Implement <component>"
        result = function(input)
        assert result == expected
    ```
-````
 
 Run: `pytest tests/path/test.py::test_name -v` Expected: FAIL
 
@@ -84,8 +83,8 @@ Run: `pytest tests/path/test.py::test_name -v` Expected: FAIL
 - [ ] Tests pass
 - [ ] No type errors
 - [ ] Committed
-
 ````
+
 ## Remember
 
 - Exact file paths always
