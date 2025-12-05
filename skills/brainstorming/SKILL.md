@@ -52,7 +52,7 @@ Every Beads epic MUST have a corresponding Linear ticket. Every Linear ticket MU
 
 **Implementation (if continuing):**
 
-- Ask: "Ready to break this into implementation tasks?"
+- Ask: "Ready to break this into implementation tasks (Beads issues)?"
 - Use `making-plans` skill to break the epic into Beads issues
 
 ## Key Principles
