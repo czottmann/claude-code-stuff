@@ -9,7 +9,6 @@ This repository provides a complete setup for extending Claude Code with:
 - **Custom Agents** - Specialized sub-agents for documentation generation and fast code search
 - **Custom Skills** - Workflows for Swift development, Xcode tooling, brainstorming, planning, and issue tracking
 - **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
-- **Beads Integration** - Git-friendly issue tracking via [steveyegge/beads](https://github.com/steveyegge/beads) for agent workflows
 
 ## Quick Start
 
@@ -53,7 +52,7 @@ Specialized sub-agents that provide **40-60% cost reduction** and **30-50% speed
 - **search** - Lightning-fast code location (<10 file reads, <30s, <5K tokens)
 - **documentation-generator** - Comprehensive documentation creation
 
-### 🎯 Skills (7)
+### 🎯 Skills (8)
 
 Workflows for development, planning, and collaboration:
 
@@ -62,10 +61,11 @@ Workflows for development, planning, and collaboration:
 - **using-xcode** - Xcode tooling and build workflows
 - **brainstorming** - Collaborative idea refinement
 - **making-plans** - Breaking epics into implementation tasks
-- **using-linear** - Linear issue tracker integration
-- **using-beads** - Git-friendly agent issue tracking (from libs/beads)
+- **issue-tracking-with-linear** - Linear issue tracker integration
+- **issue-tracking-with-beans** - Beans-only issue tracking (TodoWrite + Beans)
+- **issue-tracking-with-beans-and-linear** - Full integration (TodoWrite + Beans + Linear)
 
-### 📜 Global Rules (11)
+### 📜 Global Rules (7)
 
 Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 
@@ -82,9 +82,9 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 │ This Repository (claude-code-stuff)                 │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│  Custom Content         External Dependencies       │
-│  ├── agents/            └── libs/beads/             │
-│  ├── skills/                (issue tracking)        │
+│  Custom Content                                     │
+│  ├── agents/                                        │
+│  ├── skills/                                        │
 │  └── rules/                                         │
 │                                                     │
 │  Build System                                       │
@@ -129,9 +129,6 @@ Global rules are modular:
 ## Common Tasks
 
 ```bash
-# Update beads to latest
-git submodule update --remote libs/beads
-
 # Rebuild global rules after editing /rules/
 mise run build-agents-md
 mise run symlink-agents-md
@@ -151,7 +148,6 @@ cd skills/generating-swift-package-docs
 2. **Add Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
 3. **Create Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
 4. **Test Locally**: Deploy to `~/.claude/` before committing
-5. **Update Dependencies**: `git submodule update --remote libs/beads`
 
 ## Documentation
 
@@ -187,7 +183,8 @@ Using specialized agents with appropriate models (Haiku for search, Sonnet for c
 - **Python 3.6+** - For skill scripts
 - **gum** (optional) - For interactive confirmations (`brew install gum`)
 - **Xcode** (optional) - For Swift-related features
-- **interfazzle** (optional) - For Swift package docs (https://github.com/czottmann/interfazzle)
+- **Interfazzle** (optional) - For Swift package docs (https://github.com/czottmann/interfazzle)
+- **Beans** (optional) -  For agentic issue tracking (https://github.com/hmans/beans)
 
 ## Author
 
@@ -206,5 +203,4 @@ Spiritually: [WTFPL.](https://en.wikipedia.org/wiki/WTFPL)
 
 ## Credits
 
-- **Beads** - [steveyegge/beads](https://github.com/steveyegge/beads) provides git-friendly issue tracking for agent workflows
 - **Claude Code** - [claude.ai/code](https://claude.ai/code)

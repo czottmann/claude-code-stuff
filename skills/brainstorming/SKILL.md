@@ -37,23 +37,23 @@ Start by understanding the current project context, then ask questions one at a 
 
 ## After the Design
 
-### ⚠️ MANDATORY: Linear ↔ Beads Linking
+### ⚠️ MANDATORY: Linear ↔ Beans Linking
 
-Every Beads epic MUST have a corresponding Linear ticket. Every Linear ticket MUST have a corresponding Beads epic. No exceptions.
+Every Beans epic MUST have a corresponding Linear ticket. Every Linear ticket MUST have a corresponding Beans epic. No exceptions.
 
 **Capture the design:**
 
-1. If no Linear ticket exists yet, create one first via `using-linear` skill
-2. Create the Beads epic with the Linear ticket reference:
+1. If no Linear ticket exists yet, create one first via `issue-tracking-with-linear` skill
+2. Create the Beans epic with the Linear ticket reference:
    ```bash
-   bd create --type epic --external-ref <ticket-id> "<ticket-id>: <design-name>"
+   beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>" --no-edit
    ```
 3. Put the validated design in the epic description
 
 **Implementation (if continuing):**
 
-- Ask: "Ready to break this into implementation tasks (Beads issues)?"
-- Use `making-plans` skill to break the epic into Beads issues
+- Ask: "Ready to break this into implementation tasks (calling the `making-plans` skill)?"
+- Use `making-plans` skill
 
 ## Key Principles
 

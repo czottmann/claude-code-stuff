@@ -9,7 +9,6 @@ This repository contains Claude Code [sub-agents](https://code.claude.com/docs/e
 This is a hybrid architecture that combines:
 
 - **Custom content**: Skills and agents for iOS/macOS development, planning, and collaboration
-- **External dependencies**: The [beads](https://github.com/steveyegge/beads) library for git-friendly issue tracking
 - **Global rules**: Compiled behavior guidelines deployed to Claude Code's global configuration
 
 Tasks are set up using [mise](https://mise.jdx.dev/tasks/). Run `mise tasks ls` to see available tasks.
@@ -26,21 +25,18 @@ claude-code-stuff/
 │   ├── 0-start.md                  # Foundational principles
 │   ├── git.md                      # Git workflow preferences
 │   ├── kagi.md                     # Kagi search integration
-│   ├── issue-tracking-beads.md     # Beads issue tracking rules
-│   ├── issue-tracking-linear.md    # Linear integration
+│   ├── issue-tracking.md           # Issue tracking integration
 │   └── ...                         # Additional behavior rules
 │
-├── skills/                         # Skills directory (7 skills)
+├── skills/                         # Skills directory (8 skills)
 │   ├── developing-with-swift/      # Swift language guidelines
 │   ├── generating-swift-package-docs/  # Swift package docs
 │   ├── using-xcode/                # Xcode tooling
 │   ├── brainstorming/              # Idea refinement
 │   ├── making-plans/               # Implementation planning
-│   ├── using-linear/               # Linear integration
-│   └── using-beads                 # Symlink to libs/beads skill
-│
-├── libs/beads/                     # Git submodule (steveyegge/beads)
-│   └── examples/claude-code-skill  # Issue tracking skill
+│   ├── issue-tracking-with-linear/ # Linear integration
+│   ├── issue-tracking-with-beans/  # Beans-only projects
+│   └── issue-tracking-with-beans-and-linear/  # Both systems
 │
 ├── .mise/tasks/                    # Automation scripts (3 tasks)
 │   ├── build-agents-md             # Compile rules → AGENTS.md
@@ -72,15 +68,16 @@ Specialized Claude Code sub-agents for specific tasks. Using dedicated agents pr
 
 Executable workflows that Claude must follow when relevant. Skills are **mandatory** when they match the task context.
 
-**Available Skills** (7):
+**Available Skills** (8):
 
 - `developing-with-swift` - Style guidelines, Swift techniques
 - `generating-swift-package-docs` - On-demand Swift package API documentation
 - `using-xcode` - Xcode tooling and build workflows
 - `brainstorming` - Collaborative idea refinement
 - `making-plans` - Breaking epics into implementation tasks
-- `using-linear` - Linear issue tracker integration
-- `using-beads` - Git-friendly agent issue tracking (from libs/beads)
+- `issue-tracking-with-linear` - Linear issue tracker integration
+- `issue-tracking-with-beans` - Beans-only issue tracking (TodoWrite + Beans)
+- `issue-tracking-with-beans-and-linear` - Full integration (TodoWrite + Beans + Linear)
 
 ### Rules
 
@@ -125,4 +122,3 @@ When working in this repository:
 2. **Adding Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
 3. **Creating Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
 4. **Testing Changes**: Deploy locally before committing
-5. **Dependencies**: Update beads submodule with `git submodule update --remote libs/beads`

@@ -1,5 +1,5 @@
 ---
-name: using-linear
+name: issue-tracking-with-linear
 description: Use when working with Linear tickets/issues - establishes workflows for creating and updating tickets (issues)
 ---
 
