@@ -3,10 +3,10 @@
 
 set -l selection (
     gum choose \
-        --header "Which folder?" \
+        --header "Which folder(s) should by symlinked to `~/.claude/`?" \
         --no-limit \
         --selected='*' \
-        "agents" "commands" "hooks-scripts" "skills"
+        "agents" "hooks-scripts" "rules" "skills"
 )
 
 if test -z "$selection"

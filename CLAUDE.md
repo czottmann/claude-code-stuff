@@ -4,12 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains Claude Code [sub-agents](https://code.claude.com/docs/en/sub-agents), [agent skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview.md), and rules (which will be used to build global CLAUDE.md/AGENTS.md files).
+This repository contains Claude Code [sub-agents](https://code.claude.com/docs/en/sub-agents), [agent skills](https://docs.claude.com/en/docs/agents-and-tools/agent-skills/overview.md), and modular rules for iOS/macOS development, planning, and collaboration.
 
-This is a hybrid architecture that combines:
-
-- **Custom content**: Skills and agents for iOS/macOS development, planning, and collaboration
-- **Global rules**: Compiled behavior guidelines deployed to Claude Code's global configuration
+All components are deployed via symlinks to `~/.claude/`.
 
 Tasks are set up using [mise](https://mise.jdx.dev/tasks/). Run `mise tasks ls` to see available tasks.
 
@@ -21,7 +18,7 @@ claude-code-stuff/
 │   ├── documentation-generator.md
 │   └── search.md                   # Fast code location specialist
 │
-├── rules/                          # Source files for AGENTS.md
+├── rules/                          # Modular rules (symlinked to ~/.claude/rules/)
 │   ├── 0-start.md                  # Foundational principles
 │   ├── git.md                      # Git workflow preferences
 │   ├── kagi.md                     # Kagi search integration
@@ -38,13 +35,8 @@ claude-code-stuff/
 │   ├── issue-tracking-with-beans/  # Beans-only projects
 │   └── issue-tracking-with-beans-and-linear/  # Both systems
 │
-├── .mise/tasks/                    # Automation scripts (3 tasks)
-│   ├── build-agents-md             # Compile rules → AGENTS.md
-│   ├── symlink-agents-md           # Symlink AGENTS.md to ~/.claude/CLAUDE.md etc.
-│   └── symlink-folders-to-claude   # Symlink agents, skills, etc. directory
-│
-├── .build/                         # Build artifacts
-│   └── AGENTS.md                   # Compiled from rules/*.md
+├── .mise/tasks/                    # Automation scripts
+│   └── symlink-folders-to-claude   # Symlink agents, rules, skills, etc. to ~/.claude/
 │
 └── CLAUDE.md                       # This file
 ```
@@ -81,44 +73,26 @@ Executable workflows that Claude must follow when relevant. Skills are **mandato
 
 ### Rules
 
-Source material for global Claude Code behavior. Individual rule files in `/rules/` are compiled into `.build/AGENTS.md` and deployed to:
+Modular behavior rules in `/rules/`. Claude Code natively supports loading individual rule files from `~/.claude/rules/`, so no compilation is needed—just symlink the directory.
 
-- `~/.claude/CLAUDE.md`
-- `~/.codex/AGENTS.md`
-- `~/.config/opencode/AGENTS.md`
-
-**Build Process**:
+## Deployment
 
 ```bash
-mise run build-agents-md   # Concatenate rules/*.md → .build/AGENTS.md
-mise run symlink-agents-md # Symlink to global config locations
-```
-
-## Mise Tasks
-
-Run `mise tasks ls` to see all available tasks. Common workflows:
-
-### Build and Deploy
-
-```bash
-mise run build-agents-md          # Compile rules/*.md → .build/AGENTS.md
-mise run symlink-agents-md        # Symlink AGENTS.md to ~/.claude/CLAUDE.md etc.
-mise run symlink-folders-to-claude # Symlink ./agents, ./skills, etc. to ~/.claude/
+mise run symlink-folders-to-claude  # Symlink ./agents, ./rules, ./skills, etc. to ~/.claude/
 ```
 
 ## Organization Principles
 
 1. **Separation of Concerns**: Rules (behavior) vs Skills (workflows) vs Agents (specialized tasks)
 2. **Symlink Architecture**: Easy updates - change source, links reflect instantly
-3. **Compilation Pattern**: Small, focused rule files → compiled AGENTS.md
+3. **Modular Rules**: Individual rule files loaded directly by Claude Code (no compilation)
 4. **Domain Specialization**: Swift-specific content + generic engineering practices
-5. **Deployment Flexibility**: User-level (~/.claude/) vs project-level (.claude/)
 
 ## Development Guidelines
 
 When working in this repository:
 
-1. **Editing Rules**: Modify files in `/rules/`, then run `mise run build-agents-md`
+1. **Editing Rules**: Modify files in `/rules/` (changes are instant via symlinks)
 2. **Adding Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
 3. **Creating Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
-4. **Testing Changes**: Deploy locally before committing
+4. **Testing Changes**: Deploy via `mise run symlink-folders-to-claude` before committing

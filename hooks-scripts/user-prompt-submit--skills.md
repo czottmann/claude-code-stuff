@@ -6,7 +6,7 @@
 
 IF ANY SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
 
-If NONE apply: State which skills you checked and why none fit.
+If NONE apply: Say "Skill check: done."
 
 This is not negotiable. This is not optional. You cannot rationalize your way out of this. No exceptions.
 </EXTREMELY-IMPORTANT>

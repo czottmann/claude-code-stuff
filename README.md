@@ -8,7 +8,7 @@ This repository provides a complete setup for extending Claude Code with:
 
 - **Custom Agents** - Specialized sub-agents for documentation generation and fast code search
 - **Custom Skills** - Workflows for Swift development, Xcode tooling, brainstorming, planning, and issue tracking
-- **Global Rules** - Compiled behavior guidelines that configure Claude Code's global behavior
+- **Modular Rules** - Behavior guidelines loaded directly by Claude Code from `~/.claude/rules/`
 
 ## Quick Start
 
@@ -22,25 +22,15 @@ This repository provides a complete setup for extending Claude Code with:
 ### Setup
 
 ```bash
-# Build global rules
-mise run build-agents-md
-
-# Deploy to Claude Code
-mise run symlink-agents-md
+# Deploy to Claude Code (symlinks agents, rules, skills, hooks-scripts)
 mise run symlink-folders-to-claude
 ```
 
 ### Verify Installation
 
 ```bash
-# Check available mise tasks
-mise tasks ls
-
-# Verify agents are linked
-ls -la ~/.claude/agents/
-
-# Verify skills are linked
-ls -la ~/.claude/skills/
+# Check symlinks
+ls -la ~/.claude/agents/ ~/.claude/rules/ ~/.claude/skills/
 ```
 
 ## What You Get
@@ -65,15 +55,14 @@ Workflows for development, planning, and collaboration:
 - **issue-tracking-with-beans** - Beans-only issue tracking (TodoWrite + Beans)
 - **issue-tracking-with-beans-and-linear** - Full integration (TodoWrite + Beans + Linear)
 
-### 📜 Global Rules (7)
+### 📜 Modular Rules
 
-Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
+Individual rule files in `/rules/`, loaded directly by Claude Code from `~/.claude/rules/`:
 
 - Foundational principles and relationship dynamics
-- Mandatory skill usage protocol
 - Git workflow preferences
 - Tool integrations (Kagi, Linear)
-- Task implementation guidance
+- Preferred CLI tools
 
 ## Architecture
 
@@ -82,25 +71,23 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 │ This Repository (claude-code-stuff)                 │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│  Custom Content                                     │
 │  ├── agents/                                        │
+│  ├── rules/                                         │
 │  ├── skills/                                        │
-│  └── rules/                                         │
-│                                                     │
-│  Build System                                       │
-│  └── .mise/tasks/       ──▶  .build/AGENTS.md       │
+│  └── hooks-scripts/                                 │
 │                                                     │
 └─────────────────────────────────────────────────────┘
                           │
-                          │ Deploy (symlinks)
+                          │ Symlinks
                           ▼
 ┌─────────────────────────────────────────────────────┐
 │ Claude Code User Directory (~/.claude/)             │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│  ~/.claude/agents/      ──▶  this/agents/           │
-│  ~/.claude/skills/      ──▶  this/skills/           │
-│  ~/.claude/CLAUDE.md    ──▶  this/.build/AGENTS.md  │
+│  ~/.claude/agents/       ──▶  this/agents/          │
+│  ~/.claude/rules/        ──▶  this/rules/           │
+│  ~/.claude/skills/       ──▶  this/skills/          │
+│  ~/.claude/hooks-scripts ──▶  this/hooks-scripts/   │
 │                                                     │
 └─────────────────────────────────────────────────────┘
 ```
@@ -109,45 +96,21 @@ Compiled behavior guidelines deployed to `~/.claude/CLAUDE.md`:
 
 ### Separation of Concerns
 
-- **Rules** (`/rules/`) - Individual behavior guidelines, compiled into AGENTS.md
+- **Rules** (`/rules/`) - Individual behavior guidelines, loaded directly by Claude Code
 - **Skills** (`/skills/`) - Executable workflows that Claude must follow
 - **Agents** (`/agents/`) - Specialized sub-agents for specific tasks
-- **Hook scripts** (`/hook-scripts`) - Used with CC's [hooks](https://code.claude.com/docs/en/hooks)
+- **Hook scripts** (`/hooks-scripts/`) - Used with Claude Code's [hooks](https://code.claude.com/docs/en/hooks)
 
 ### Symlink Architecture
 
-All deployments use symlinks - change source files, and Claude Code sees updates instantly. No copying, no syncing.
-
-### Compilation Pattern
-
-Global rules are modular:
-
-1. Write small, focused rule files in `/rules/`
-2. Run `mise run build-agents-md` to concatenate
-3. Deploy to `~/.claude/CLAUDE.md` via `mise run symlink-agents-md`
-
-## Common Tasks
-
-```bash
-# Rebuild global rules after editing /rules/
-mise run build-agents-md
-mise run symlink-agents-md
-
-# Add a new custom skill
-mkdir -p skills/my-new-skill
-# Create SKILL.md following the pattern in existing skills
-
-# Test a skill's Python script
-cd skills/generating-swift-package-docs
-./scripts/generate_docs.py ModuleName /path/to/Project.xcodeproj
-```
+All deployments use symlinks—change source files, and Claude Code sees updates instantly. No compilation, no syncing.
 
 ## Development Workflow
 
-1. **Edit Rules**: Modify files in `/rules/`, then `mise run build-agents-md`
+1. **Edit Rules**: Modify files in `/rules/` (instant via symlinks)
 2. **Add Skills**: Create in `/skills/`, follow SKILL.md format (see existing examples)
 3. **Create Agents**: Add to `/agents/`, include YAML frontmatter with model/tools config
-4. **Test Locally**: Deploy to `~/.claude/` before committing
+4. **Deploy**: Run `mise run symlink-folders-to-claude`
 
 ## Documentation
 
@@ -166,15 +129,15 @@ Using specialized agents with appropriate models (Haiku for search, Sonnet for c
 
 ### Modularity
 
-- Mix custom domain expertise (Swift) with proven practices (superpowers)
+- Mix custom domain expertise (Swift) with generic engineering practices
 - Update components independently
-- Deploy globally or per-project
+- Deploy globally via symlinks
 
 ### Maintainability
 
 - Single source of truth for each component
 - Version-controlled behavior changes
-- Auditable rule compilation
+- Instant updates via symlinks
 
 ## Requirements
 
@@ -184,7 +147,7 @@ Using specialized agents with appropriate models (Haiku for search, Sonnet for c
 - **gum** (optional) - For interactive confirmations (`brew install gum`)
 - **Xcode** (optional) - For Swift-related features
 - **Interfazzle** (optional) - For Swift package docs (https://github.com/czottmann/interfazzle)
-- **Beans** (optional) -  For agentic issue tracking (https://github.com/hmans/beans)
+- **Beans** (optional) - For agentic issue tracking (https://github.com/hmans/beans)
 
 ## Author
 
