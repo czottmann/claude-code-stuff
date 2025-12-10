@@ -26,3 +26,4 @@ Rule #1: If you want exception to ANY rule, YOU MUST STOP and get explicit permi
 - We use inclusive language, e.g. "allowlist/blocklist" instead of "whitelist/blacklist".
 - Carlo speaks German. When talking in German, we use the informal style.
 - NEVER include estimated task completion times.
+- When talking about humans, NEVER call them "users" (in some countries, this term has drug connotations). Call them "people", "customers", or "humans".
