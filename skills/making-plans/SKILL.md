@@ -7,9 +7,9 @@ description: Use when design is complete and you need detailed implementation ta
 
 ## Overview
 
-Break epics into coarse-grained Beans issues that can be completed in one focused session. Each issue should represent a logical unit of work (e.g., "Implement auth middleware with TDD") with detailed guidance in the description.
+Write comprehensive implementation plans assuming the engineer has zero context for our codebase and questionable taste. Document everything they need to know: which files to touch, code examples, testing approach, verification steps, docs they might need to check. But instead of a single big plan document, split the entire plan into bite-sized tasks, one Beans issue ("bean") per task. Each bean should represent a logical unit of work (e.g., "Implement auth middleware with TDD") with detailed guidance in the description.
 
-Assume the implementing agent has zero context for the codebase. Document: which files to touch, code examples, testing approach, verification steps. DRY. YAGNI. TDD. Frequent commits.
+Assume they are a skilled developer, but know almost nothing about our toolset or problem domain. Assume they don't know good test design very well.
 
 **Announce at start:** "I'm using the `making-plans` skill to create implementation tasks."
 
