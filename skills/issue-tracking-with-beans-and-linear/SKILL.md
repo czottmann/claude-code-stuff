@@ -78,7 +78,7 @@ When beginning work on a Linear ticket (e.g., ZCO-123):
 1. Run `beans list --type epic | rg --fixed-strings '<linear-ticket-id>'` to find an existing Beans epic
 2. If none exists, create one automatically:
    ```
-   beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>" --no-edit
+   beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>"
    ```
 3. All implementation sub-tasks go under this epic as child issues using `--link parent:<epic-id>`
 

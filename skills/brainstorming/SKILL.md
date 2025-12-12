@@ -48,7 +48,7 @@ Every Beans epic MUST have a corresponding Linear ticket. Every Linear ticket MU
 1. If no Linear ticket exists yet, create one first via `issue-tracking-with-linear` skill
 2. Create the Beans epic with the Linear ticket reference:
    ```bash
-   beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>" --no-edit
+   beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>"
    ```
 3. Put the validated design in the epic description
 
