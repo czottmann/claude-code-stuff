@@ -15,6 +15,8 @@ Assume the implementing agent has zero context for the codebase. Document: which
 
 ### ⚠️ PREREQUISITE: Linear ↔ Beans Epic
 
+BEFORE continuing, you MUST read your `issue-tracking-with-beans-and-linear` skill.
+
 Before breaking down tasks, you MUST have:
 
 1. A Linear ticket (e.g., ZCO-123)
@@ -43,7 +45,7 @@ If either is missing, STOP and create them first. Use `brainstorming` skill if n
 For each task, create a Beans issue:
 
 ```bash
-beans create "Implement <component>" --type task --link parent:<epic-id> --body "<description>" --no-edit
+beans create "Implement <component>" --type task --link parent:<epic-id> --body "<description>"
 ```
 
 **Issue description should include:**
@@ -91,7 +93,6 @@ Run: `pytest tests/path/test.py::test_name -v` Expected: FAIL
 - Complete code examples (not "add validation")
 - Exact commands with expected output
 - Each task issue is a child of the epic
-- Set dependencies with `bd dep` when tasks must be ordered
 
 ## Execution Handoff
 
