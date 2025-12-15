@@ -75,7 +75,7 @@ This keeps bean state synchronized with codebase state.
 
 When beginning work on a Linear ticket (e.g., ZCO-123):
 
-1. Run `beans list --type epic | rg --fixed-strings '<linear-ticket-id>'` to find an existing Beans epic
+1. Run `beans query '{ beans(filter: { type: ["epic"], search: "\"<linear-ticket-id>\"" }) { id title status } }'` to find an existing related Beans epic
 2. If none exists, create one automatically:
    ```
    beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>"
@@ -106,7 +106,7 @@ This ensures Linear ticket traceability in git history even after Beans cleanup.
 
 When you discover work during implementation:
 
-1. Create a bean immediately (`--tag discovered --link related:<current-bean>`)
+1. Create a bean immediately (`--tag discovered`), add a line that explains that it was created while working on current bean, and name the current bean.
 2. Assess if it needs Linear escalation
 3. Never ignore discovered work due to context pressure
 
@@ -125,13 +125,13 @@ For purely technical implementation details (refactoring, test fixes, code clean
 When Beans work reveals an epic-level concern:
 
 1. Create the bean with `--type epic`
-2. Immediately create a corresponding Linear ticket
+2. Immediately create a corresponding Linear ticket, tag it as "Epic"
 3. Cross-reference both directions
 
 ## Querying Work
 
-- `beans list --status open` — Find unblocked work to do next
-- `beans list | rg --fixed-strings "<linear-ticket-id>"` — All Beans issues for a Linear ticket
+- `beans list --status backlog` — Find unblocked work to do next
+- `beans list --search "<linear-ticket-id>"` — All Beans issues for a Linear ticket
 - `beans show <id>` — View issue details including dependencies
 
 ## Provenance for Context

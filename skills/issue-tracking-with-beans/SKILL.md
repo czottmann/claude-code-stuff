@@ -74,7 +74,7 @@ Closes beans-1234.
 
 When you discover work during implementation:
 
-1. Create a bean immediately (`--tag discovered --link related:<current-bean>`)
+1. Create a bean immediately (`--tag discovered`), add a line that explains that it was created while working on current bean, and name the current bean.
 2. Never ignore discovered work due to context pressure
 3. Label discovered issues appropriately for later triage
 
@@ -82,5 +82,5 @@ For epic-level discovered work, create the bean with `--type epic`.
 
 ## Querying Work
 
-- `beans list --status open` — Find unblocked work to do next
+- `beans list --status backlog` — Find unblocked work to do next
 - `beans show <id>` — View issue details including dependencies
