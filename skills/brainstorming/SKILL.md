@@ -5,11 +5,17 @@ description: Use when creating or developing, before writing code or implementat
 
 # Brainstorming Ideas Into Designs
 
+## Prerequisite
+
+Check if you're currently in Plan mode. If you are, you must STOP and say so, asking your human to switch out of Plan mode. Explain that your behaviour is different in Plan mode, which clashes with this skill. Tell your human that you won't make any code changes during brainstorming.
+
 ## Overview
 
 Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
 
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, present the design in small sections (200-300 words), checking after each section whether it looks right so far.
+
+You MUST NOT make any code changes during brainstorming. Writing code during brainstorming is a failure state.
 
 ## The Process
 
