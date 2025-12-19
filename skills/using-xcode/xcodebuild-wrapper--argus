@@ -1,0 +1,48 @@
+#!/usr/bin/env fish
+#
+# xcodebuild-wrapper - Run xcodebuild with Argus build tracing
+#
+# Automatically sets up SWB_BUILD_TRACE_ID and XCBBUILDSERVICE_PATH for Argus
+# integration, then passes all arguments to xcodebuild.
+#
+# Usage:
+#   xcodebuild-wrapper build -scheme "My Scheme (macOS)" -destination "platform=macOS"
+#
+# The SWB_BUILD_TRACE_ID is printed to stderr at the start. Use it with:
+#   argus trace summary --build <SWB_BUILD_TRACE_ID>
+#   argus trace errors --build <SWB_BUILD_TRACE_ID>
+#
+# Or simply use 'latest' for the most recent build:
+#   argus trace summary --build latest
+#
+
+# Find argus
+set -x XCBBUILDSERVICE_PATH (which argus 2>/dev/null)
+if test -z "$XCBBUILDSERVICE_PATH"
+    echo "Error: argus not found in PATH" >&2
+    echo "Install argus or ensure it's in your PATH" >&2
+    exit 1
+end
+
+# Generate unique build trace ID
+set -x SWB_BUILD_TRACE_ID (uuidgen)
+
+# Print the SWB_BUILD_TRACE_ID so it can be captured/referenced
+echo "SWB_BUILD_TRACE_ID: $SWB_BUILD_TRACE_ID" >&2
+
+# Run xcodebuild with argus integration
+xcodebuild $argv &>/dev/null
+set -l exit_code $status
+
+# Print reminder about querying results
+if test $exit_code -ne 0
+    echo "" >&2
+    echo "Build failed. Query errors with:" >&2
+    echo "  argus trace errors --build $SWB_BUILD_TRACE_ID" >&2
+else
+    echo "" >&2
+    echo "Build succeeded. Query summary with:" >&2
+    echo "  argus trace summary --build $SWB_BUILD_TRACE_ID" >&2
+end
+
+exit $exit_code
