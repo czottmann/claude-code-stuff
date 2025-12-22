@@ -45,7 +45,7 @@ If either is missing, STOP and create them first. Use `brainstorming` skill if n
 For each task, create a Beans issue:
 
 ```bash
-beans create "Implement <component>" --type task --link parent:<epic-id> --body "<description>"
+beans create "Implement <component>" --type task --parent <epic-id> --body "<description>"
 ```
 
 **Issue description should include:**

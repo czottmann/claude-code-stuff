@@ -30,6 +30,7 @@ You MUST NOT make any code changes during brainstorming. Writing code during bra
 **Exploring approaches:**
 
 - Propose 2-3 different approaches with trade-offs
+- Look at the problem space like a seasoned developer: Should we implement every facet from scratch, or would existing libraries/frameworks be the better choice? Think hard and weigh the complexity of planned work, the maturity of available solutions, overall maintainability, and the risk of tech debt. Walk me through your thought process.
 - Present options conversationally with your recommendation and reasoning
 - Lead with your recommended option and explain why
 

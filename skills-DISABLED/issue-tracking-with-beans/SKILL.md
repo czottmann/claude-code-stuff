@@ -33,9 +33,9 @@ Two systems serve different purposes. Use the right tool for the job.
 For user-facing, non-trivial work:
 
 1. Create a bean first (`beans create ... -s in-progress`)
-2. Create a TodoWrite list for live user visibility
+2. Create a TodoWrite list for live user visibility (prefix todos with bean ID)
 3. Update both as you progress
-4. TodoWrite items should mirror bean checklist items
+4. TodoWrite items should mirror in-bean checklist items
 
 For non-user-facing work (background agents, audit-only):
 

@@ -1,27 +1,20 @@
 ---
 name: issue-tracking-with-beans-and-linear
-description: Use when starting work, tracking tasks, or deciding where to record discovered work - clarifies when to use TodoWrite vs Beans vs Linear
+description: Use when starting work, tracking tasks, or deciding where to record discovered work - clarifies when to use Beans vs Linear
 ---
 
 # Task Tracking Hierarchy
 
-Three systems serve different purposes. Use the right tool for the job.
+Two systems serve different purposes. Use the right tool for the job.
 
 | System        | Purpose                    | Persistence  | Audience                |
 | ------------- | -------------------------- | ------------ | ----------------------- |
-| **TodoWrite** | Live progress visibility   | Session only | User                    |
 | **Beans**     | Agent memory & audit trail | Git-tracked  | Agents, future sessions |
 | **Linear**    | Project tracking           | External     | Humans                  |
 
 Linear is for human-visible project tracking. Beans is for agent implementation memory. Both systems work together with bidirectional linking.
 
 ## When to Use Each System
-
-**TodoWrite** — User-facing progress indicator for the current session:
-
-- Multi-step work (3+ steps) where the user benefits from seeing progress
-- Skip for background/non-user-facing work
-- Skip for trivial single-step tasks
 
 **Beans** — Persistent agent memory (only if the project uses Beans):
 
@@ -39,38 +32,6 @@ Linear is for human-visible project tracking. Beans is for agent implementation 
 - Decisions requiring human input
 - Security concerns
 
-## Rule: Use Both TodoWrite and Beans Together
-
-For user-facing, non-trivial work:
-
-1. Create a bean first (`beans create ... -s in-progress`)
-2. Create a TodoWrite list for live user visibility
-3. Update both as you progress
-4. TodoWrite items should mirror bean checklist items
-
-For non-user-facing work (background agents, audit-only):
-
-- Use Beans only
-- Skip TodoWrite
-
-## Rule: Update Bean Checklists Immediately
-
-After completing each checklist item in a bean:
-
-1. Edit the bean file: `- [ ]` → `- [x]`
-2. This creates a recoverable checkpoint if context is lost
-3. The I/O overhead is acceptable for persistence
-
-## Rule: Commit Bean Changes With Code
-
-Every code commit includes its associated bean file updates:
-
-```bash
-git commit -m "[TYPE] Description" -- src/file.ts .beans/issue-abc123.md
-```
-
-This keeps bean state synchronized with codebase state.
-
 ## Starting Work on a Linear Ticket
 
 When beginning work on a Linear ticket (e.g., ZCO-123):
@@ -80,7 +41,7 @@ When beginning work on a Linear ticket (e.g., ZCO-123):
    ```
    beans create "<linear-ticket-id>: <design-name>" --type epic --body "<description>"
    ```
-3. All implementation sub-tasks go under this epic as child issues using `--link parent:<epic-id>`
+3. All implementation sub-tasks go under this epic as child issues using `--parent <epic-id>`
 
 ## Git Commit Messages
 
