@@ -6,7 +6,7 @@ set -l selection (
         --header "Which folder(s) should by symlinked to `~/.claude/`?" \
         --no-limit \
         --selected='*' \
-        "agents" "hooks-scripts" "rules" "skills"
+        "agents" "hooks-scripts" "rules" "skills" "utils"
 )
 
 if test -z "$selection"
