@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read JSON input from stdin and extract basic info in one jq call
-IFS=$'\t' read -r current_dir model_name ctx_size ctx_input ctx_cache_create ctx_cache_read < <(jq -r '[.workspace.current_dir, .model.display_name, .context_window.context_window_size, .context_window.current_usage.input_tokens // 0, .context_window.current_usage.cache_creation_input_tokens // 0, .context_window.current_usage.cache_read_input_tokens // 0] | @tsv')
+IFS=$'\t' read -r current_dir model_name ctx_size ctx_input ctx_cache_create ctx_cache_read ctx_output < <(jq -r '[.workspace.current_dir, .model.display_name, .context_window.context_window_size, .context_window.current_usage.input_tokens // 0, .context_window.current_usage.cache_creation_input_tokens // 0, .context_window.current_usage.cache_read_input_tokens // 0, .context_window.current_usage.output_tokens // 0] | @tsv')
 
 # Convert path to relative to home (~/...)
 home_path="$HOME"
@@ -44,7 +44,7 @@ colorize_pct() {
 # Calculate session (context window) usage percentage
 session_info=""
 if [ -n "$ctx_size" ] && [ "$ctx_size" != "null" ] && [ "$ctx_size" -gt 0 ] 2>/dev/null; then
-    ctx_total=$((ctx_input + ctx_cache_create + ctx_cache_read))
+    ctx_total=$((ctx_input + ctx_cache_create + ctx_cache_read + ctx_output))
     ctx_pct=$((ctx_total * 100 / ctx_size))
     session_info=$' \033[38;5;245m(\033[0m'"$(colorize_pct "$ctx_pct" "${ctx_pct}%")"$'\033[38;5;245m)\033[0m'
 fi
