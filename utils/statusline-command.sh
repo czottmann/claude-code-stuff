@@ -42,10 +42,12 @@ colorize_pct() {
 }
 
 # Calculate session (context window) usage percentage
+# Scale to compaction threshold (~78%) so 100% = compaction imminent
 session_info=""
 if [ -n "$ctx_size" ] && [ "$ctx_size" != "null" ] && [ "$ctx_size" -gt 0 ] 2>/dev/null; then
     ctx_total=$((ctx_input + ctx_cache_create + ctx_cache_read + ctx_output))
-    ctx_pct=$((ctx_total * 100 / ctx_size))
+    compaction_threshold=78  # 100% minus ~22.5% autocompact buffer
+    ctx_pct=$((ctx_total * 100 * 100 / (ctx_size * compaction_threshold)))
     session_info=$' \033[38;5;245m(\033[0m'"$(colorize_pct "$ctx_pct" "${ctx_pct}%")"$'\033[38;5;245m)\033[0m'
 fi
 
