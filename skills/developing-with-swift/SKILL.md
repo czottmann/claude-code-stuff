@@ -99,7 +99,7 @@ For simple use cases that don't contain a lot of logic and state, use SwiftUI's 
 - `@Binding` - Two-way data flow between views
 - `@Environment` - Dependency injection for app-wide concerns
 
-For more complex use cases with lots of logic and interdependent states, use [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). Before starting to write code, read the TCA documentation (see section _"Read SDK/ package/ library/ framework documentation"_).
+For more complex use cases with lots of logic and interdependent states, use [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). Before starting to write code, read the TCA documentation using the `generating-swift-package-docs` skill.
 
 ### 2. State Ownership Principles
 
