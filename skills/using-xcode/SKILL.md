@@ -14,3 +14,7 @@ When running Xcode builds, use the `xcodebuild-wrapper` script to automatically 
 The wrapper returns structured data for the build, so do not abbreviate or `tail` its output!
 
 **Location**: `~/.claude/skills/using-xcode/xcodebuild-wrapper`
+
+## Derived Data
+
+**DO NOT** attempt to delete or remove the derived data folder unless explicitly told so.
