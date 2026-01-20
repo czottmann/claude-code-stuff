@@ -5,13 +5,18 @@ description: Use this before running `xcodebuild` or working with Xcode - tells 
 
 ## Building Xcode projects
 
-When running Xcode builds, use the `xcodebuild-wrapper` script to automatically capture build data [`xcsift`](https://github.com/ldomaradzki/xcsift). Wrapper accepts the same arguments as `xcodebuild` itself.
+When running Xcode builds, use the `xcodebuild-wrapper` script over `xcodebuild`. This wrapper:
+
+- returns build data in a structured way for LLM use
+- accepts the same arguments as `xcodebuild`
+
+Don't tail or abbreviate its output.
+
+Example:
 
 ```bash
 ./xcodebuild-wrapper build -scheme "Actions For Obsidian (macOS)"
 ```
-
-The wrapper returns structured data for the build, so do not abbreviate or `tail` its output!
 
 **Location**: `~/.claude/skills/using-xcode/xcodebuild-wrapper`
 
