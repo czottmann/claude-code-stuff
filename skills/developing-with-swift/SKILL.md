@@ -89,6 +89,10 @@ If SwiftData is configured to use CloudKit:
 
 - If installed, make sure SwiftLint returns no warnings or errors before committing.
 
+## Dependency documentation
+
+Package docs can be found in `<project-root>/dependency-docs/`. When docs are missing, use your `generating-swift-package-docs` skill.
+
 ## Architecture guidelines
 
 ### 1. Embrace Native State Management
@@ -99,7 +103,7 @@ For simple use cases that don't contain a lot of logic and state, use SwiftUI's 
 - `@Binding` - Two-way data flow between views
 - `@Environment` - Dependency injection for app-wide concerns
 
-For more complex use cases with lots of logic and interdependent states, use [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). Before starting to write code, read the TCA documentation using the `generating-swift-package-docs` skill.
+For more complex use cases with lots of logic and interdependent states, use [Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture). Before starting to write code, read the TCA docs in `<project_root>/dependency-docs/`.
 
 ### 2. State Ownership Principles
 
@@ -259,12 +263,6 @@ if !somethingCondition1,
 ### `switch/case`
 
 Every `case` block must be followed by a blank line.
-
-## LSP
-
-Swift language server (SourceKit-LSP) is installed, providing code intelligence for Swift projects.
-
-`sourcekit-lsp` is available in your path.
 
 ## L10n rules
 
